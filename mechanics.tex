@@ -1,7 +1,215 @@
-\documentclass{revtex4-2}
+\documentclass{amsart}
+
+\usepackage{amsfonts}
+\usepackage{amsthm}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{definition}[theorem]{Definition}
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+
 \begin{document}
 \title{Mechanics}
 \author{dinay-kingkiller}
+\date{\today}
+
+
+\begin{abstract}
+  These notes are an exploration of the geometric and algebraic foundations behind special and general relativity, culminating in the classical problem of Mercury’s perihelion precession. We begin with symmetry groups and their associated linear approximations, starting from basic spatial rotations and building up to the structure of spacetime transformations. The treatment aims to bridge the gap between abstract formalism and physical insight, providing a foundation for readers new to manifolds, symmetry algebras, and curved spacetime.
+\end{abstract}
+
 \maketitle
+
+\section{Introduction}
+
+The goal of these notes is to develop a clear and mathematically grounded understanding of special and general relativity, culminating in the classical astrophysical problem of Mercury’s perihelion precession. This example serves as a rich case study that demonstrates the interplay between spacetime symmetries, geometry, and gravitational effects.
+
+Because the language of continuous symmetries and curved spaces—expressed through structures such as transformation groups and differentiable manifolds—is often unfamiliar, the notes begin with the foundational example of the rotation group and its algebra. This accessible case introduces the core concepts and techniques before progressing to the more complex structures underlying relativity.
+
+Throughout, the emphasis is on building intuition and formalism simultaneously, focusing on precise mathematical definitions and constructive examples. The intended audience is readers with some background in calculus and linear algebra, but no prior exposure to group theory or differential geometry is assumed.
+
+The notes are organized as follows: Section~\ref{sec:groups} introduces continuous symmetry groups and their algebras, starting from rotations; Section~\ref{sec:spacetime} develops the geometry of spacetime and the Minkowski metric; Section~\ref{sec:relativity} presents the formalism of special and general relativity; and Section~\ref{sec:mercury} concludes with the application to Mercury’s precession problem.
+
+\section{Continuous Symmetry Groups and Their Algebras}
+\label{sec:groups}
+
+In physics and mathematics, continuous symmetry groups describe transformations that preserve certain structures. These groups are smooth spaces with operations that vary smoothly.
+
+A key example is the group of rotations in three dimensions, consisting of all orthogonal \(3 \times 3\) matrices with determinant 1. These rotations preserve lengths and orientations in three-dimensional space.
+
+The algebra associated with such a group is the tangent space at the identity element, equipped with a bracket operation that encodes the infinitesimal structure of the group.
+
+We begin with the group of rotations in three dimensions and its algebra, which provides an accessible example to understand generators, commutation relations, and matrix exponentiation. This lays the groundwork for the more complex groups appearing in relativity.
+
+\subsection{The Rotation Group in Three Dimensions}
+
+\begin{definition}
+  The rotation group is defined as
+  \[
+  \mathrm{SO}(3) = \left\{ R \in \mathbb{R}^{3 \times 3} \right| R^T R = I, \quad \det(R) = 1 \right\}.
+  \]
+\end{definition}
+
+\begin{theorem}
+  The associated algebra consists of all \(3 \times 3\) real skew-symmetric matrices:
+  \[
+  \mathfrak{so}(3) = \left\{ X \in \mathbb{R}^{3 \times 3} \middle| X^T = -X \right\}.
+  \]
+\end{theorem}
+
+\begin{proof}
+  Consider a smooth curve \(R(t): \mathbb{R} \to \mathrm{SO}(3)\) such that \(R(0) = I\).
+  Since \(R(t)\) is orthogonal,
+  \[
+  R(t)^T R(t) = I.
+  \]
+  Differentiate both sides with respect to \(t\):
+  \[
+  \frac{d}{dt} \left( R(t)^T R(t) \right) = \frac{d}{dt} I = 0.
+  \]
+  Applying the product rule,
+  \[
+  \dot{R}(t)^T R(t) + R(t)^T \dot{R}(t) = 0.
+  \]
+  Evaluating at \(t=0\), where \(R(0) = I\),
+  \[
+  \dot{R}(0)^T I + I^T \dot{R}(0) = \dot{R}(0)^T + \dot{R}(0) = 0.
+  \]
+  Define \(X := \dot{R}(0)\). The above equation implies
+  \[
+  X^T = -X,
+  \]
+  so \(X \in \mathfrak{so}(3)\) is skew-symmetric.
+\end{proof}
+
+Generators of rotations about the coordinate axes are commonly taken as:
+\[
+J_1 = \begin{pmatrix} 0 & 0 & 0 \\ 0 & 0 & -1 \\ 0 & 1 & 0 \end{pmatrix}, \quad
+J_2 = \begin{pmatrix} 0 & 0 & 1 \\ 0 & 0 & 0 \\ -1 & 0 & 0 \end{pmatrix}, \quad
+J_3 = \begin{pmatrix} 0 & -1 & 0 \\ 1 & 0 & 0 \\ 0 & 0 & 0 \end{pmatrix}.
+\]
+
+These satisfy the commutation relations:
+\[
+[J_i, J_j] = \epsilon_{ijk} J_k,
+\]
+where \(\epsilon_{ijk}\) is the fully antisymmetric symbol with \(\epsilon_{123} = +1\).
+
+\subsection{Exponentiation and Finite Rotations}
+
+Finite rotations are obtained by exponentiating elements of the algebra:
+\[
+R(\theta, \hat{n}) = \exp(\theta \, \hat{n} \cdot \mathbf{J}) = I + \sin\theta \, (\hat{n} \cdot \mathbf{J}) + (1 - \cos\theta)(\hat{n} \cdot \mathbf{J})^2,
+\]
+where \(\hat{n}\) is a unit vector indicating the rotation axis and \(\theta\) the rotation angle.
+
+This formula expresses how infinitesimal rotations combine to form a finite rotation around an arbitrary axis.
+
+\section{Symmetry Transformations of Spacetime}
+\label{sec:spacetime}
+
+To describe the symmetries of spacetime consistent with special relativity, we consider transformations preserving the spacetime interval defined by a metric with signature \((+,-,-,-)\).
+
+\subsection{The Group of Spacetime Rotations and Boosts}
+
+The set of all linear transformations that preserve this spacetime interval forms a group of matrices \( \Lambda \in \mathbb{R}^{4 \times 4} \) satisfying
+\[
+\Lambda^\top \eta \, \Lambda = \eta,
+\]
+where \(\eta = \mathrm{diag}(1, -1, -1, -1)\) is the spacetime metric tensor.
+
+This group includes:
+- Spatial rotations (which act like ordinary rotations on space coordinates),
+- Boosts (which mix time and space coordinates corresponding to changing inertial frames moving at constant velocity).
+
+\subsection{Algebra of Spacetime Transformations}
+
+The algebra associated with this group is the tangent space at the identity matrix consisting of all \(4 \times 4\) matrices \(X\) such that
+\[
+X^\top \eta + \eta X = 0.
+\]
+
+This condition implies the algebra consists of matrices antisymmetric with respect to the metric \(\eta\).
+
+\subsection{Generators of the Algebra}
+
+A convenient basis for this algebra splits into two parts:
+- Generators \(J_i\) of spatial rotations, which act on spatial coordinates and satisfy the same commutation relations as the rotation algebra.
+- Generators \(K_i\) of boosts, which mix time and space components.
+
+These satisfy the following bracket relations:
+\[
+[J_i, J_j] = \epsilon_{ijk} J_k,
+\]
+\[
+[J_i, K_j] = \epsilon_{ijk} K_k,
+\]
+\[
+[K_i, K_j] = -\epsilon_{ijk} J_k,
+\]
+where \(\epsilon_{ijk}\) is the fully antisymmetric symbol.
+
+\subsection{Exponentiating to Finite Transformations}
+
+Finite transformations in this group can be constructed by exponentiating linear combinations of these generators:
+\[
+\Lambda = \exp\left(\sum_i \theta_i J_i + \sum_i \phi_i K_i \right),
+\]
+where \(\theta_i\) parameterize rotations and \(\phi_i\) parameterize boosts.
+
+This process generalizes the construction of rotations in three dimensions to transformations mixing space and time, fundamental to special relativity.
+
+\section{Spacetime Geometry and Tangent Structure}
+\label{sec:spacetime_geometry}
+
+The study of motion and curvature in both special and general relativity begins with the geometry of spacetime itself. In this framework, the geometry is encoded not in Euclidean distance, but in a structure defined by a metric tensor.
+
+\subsection{Spacetime Metric}
+
+Spacetime is modeled as a four-dimensional space with a metric tensor \(\eta_{\mu\nu}\) that measures intervals between events. In standard coordinates, this tensor takes the form:
+\[
+\eta_{\mu\nu} = \mathrm{diag}(1, -1, -1, -1),
+\]
+defining the invariant spacetime interval:
+\[
+s^2 = \eta_{\mu\nu} x^\mu x^\nu = (x^0)^2 - (x^1)^2 - (x^2)^2 - (x^3)^2.
+\]
+This interval remains unchanged under transformations in the spacetime symmetry group, and distinguishes between timelike, spacelike, and lightlike separations.
+
+\subsection{Tangent Spaces and Vectors}
+
+At every point in spacetime, one can define a tangent space, which locally resembles flat spacetime. Tangent vectors at a point represent possible directions of motion or change and can be added and scaled like vectors in ordinary space.
+
+A metric tensor acts on two tangent vectors \(u^\mu, v^\nu\) and produces a real number:
+\[
+\langle u, v \rangle = \eta_{\mu\nu} u^\mu v^\nu.
+\]
+This inner product generalizes the familiar dot product from Euclidean space but allows for negative values due to the signature of the metric.
+
+\subsection{Velocity Vectors and the Metric}
+
+A velocity vector \(v^\mu = \frac{dx^\mu}{d\tau}\) describes the motion of a particle through spacetime. The metric applied to a velocity vector with itself yields:
+\[
+\eta_{\mu\nu} v^\mu v^\nu = 1,
+\]
+for particles moving slower than light, where \(\tau\) is the proper time measured along the path.
+
+The metric thus provides a natural way to distinguish different types of motion, and will later allow us to define curvature and dynamics in curved spacetime as well.
+
+\section{Relativity and its Mathematical Foundations}
+\label{sec:relativity}
+
+The theory of relativity fundamentally redefines our understanding of space and time by introducing a four-dimensional spacetime manifold equipped with a metric tensor of signature \((+,-,-,-)\). Special relativity is characterized by invariance under the Poincaré group, which combines Lorentz transformations—rotations and boosts preserving the Minkowski metric—and spacetime translations. The algebraic structure of this group provides insight into the conserved quantities associated with spacetime symmetries via Noether’s theorem.
+
+General relativity extends this framework by promoting the metric tensor to a dynamic field that encodes the curvature of spacetime, governed by the Einstein field equations. The mathematical apparatus involves differential geometry, particularly the concepts of manifolds, tangent spaces, and tensor fields. This section develops the necessary background, beginning with a review of Lorentz transformations and the Poincaré algebra, before progressing to metric tensors on curved manifolds, geodesics, and curvature tensors essential for describing gravitational phenomena.
+
+\section{The Precession of Mercury’s Orbit}
+\label{sec:mercury}
+
+The perihelion precession of Mercury’s orbit is a seminal observational phenomenon that challenged Newtonian gravity and provided empirical support for the relativistic description of gravitation. Classical Newtonian mechanics predicts orbital motion based on an inverse-square central force, resulting in closed elliptical orbits. However, observations show an additional precession unaccounted for by classical perturbations from other planets.
+
+General relativity explains this anomaly through the curvature of spacetime caused by the Sun’s mass. By modeling Mercury’s trajectory as a geodesic in the Schwarzschild metric, one derives corrections to the Newtonian orbital elements, resulting in a predicted advance of the perihelion that matches observations to high precision. This section presents the derivation of the relativistic corrections to Mercury’s orbit, starting from the Schwarzschild solution to Einstein’s field equations and applying perturbation techniques to the geodesic equations of motion.
+
+
 
 \end{document}
