@@ -278,7 +278,7 @@ We begin with the group of rotations in three dimensions and its algebra, which 
   where $\epsilon_{ijk}$ is the fully antisymmetric symbol.
 \end{theorem}
 
-\subsection{The Group of Spacetime Rotations and Boosts}
+\section{The Group of Spacetime Rotations and Boosts}
 \begin{definition}[Proper orthochronous spacetime symmetry group]
   Let $\eta$ be the flat spacetime metric tensor:
   \[
@@ -293,6 +293,7 @@ We begin with the group of rotations in three dimensions and its algebra, which 
   \mathrm{SO}^+(1,3) = \left\{ \Lambda \in \mathrm{GL}(4,\mathbb{R}) \middle| \Lambda^\top \eta \Lambda = \eta,\ \det \Lambda = 1,\ \Lambda^0{}_0 \geq 1 \right\}.
   \]
 \end{definition}
+
 \begin{theorem}
   Rotations satisfy the conditions for $\mathrm{SO}^+(1,3)$. For $R_3\in\mathrm{SO}(3)$
   \[
@@ -321,7 +322,7 @@ We begin with the group of rotations in three dimensions and its algebra, which 
   \end{pmatrix} =
   \begin{pmatrix}
     -1 & 0 \\
-    0 & R_3^TR_3
+    0 & R_3^\top R_3
   \end{pmatrix} =
   \begin{pmatrix}
     -1 & 0 \\
@@ -332,7 +333,7 @@ We begin with the group of rotations in three dimensions and its algebra, which 
 \end{proof}
 
 \begin{lemma}
-  For a boost in the $x$-direction that preserves the interval defined by the flat metric, the transformation matrix $\Lambda$ can be written as
+  For a boost in the $x$-direction that preserves the interval defined by the flat metric, the transformation matrix $\Lambda\in\mathrm{SO}(1,1)$ can be written as
   \[
   \Lambda =
   \begin{pmatrix}
@@ -435,7 +436,7 @@ We begin with the group of rotations in three dimensions and its algebra, which 
   \Lambda =
   \begin{pmatrix}
     \gamma & -\gamma v \hat{n}^\top \\
-    -\gamma v \hat{n}^\top & I_3 + \left(\gamma-1\right)\hat{n}\hat{n}^\top
+    -\gamma v \hat{n} & I_3 + \left(\gamma-1\right)\hat{n}\hat{n}^\top
   \end{pmatrix} \in \mathrm{SO}^+(1,3)
   \]
   where $\gamma=\frac{1}{\sqrt{1-v^2}}$ and \emph{speed} in natural units $v\in(-1,1)$. Or, in terms of the \emph{rapidity} parameter $\phi:=\arctanh v$
@@ -443,12 +444,11 @@ We begin with the group of rotations in three dimensions and its algebra, which 
   \Lambda =
   \begin{pmatrix}
     \cosh \phi & -\sinh \phi \hat{n}^\top \\
-    -\sinh \phi \hat{n} & \mathbf{I}_3 + (\cosh \phi - 1) \hat{n} \hat{n}^\top
+    -\sinh \phi \hat{n} & I_3 + (\cosh \phi - 1) \hat{n} \hat{n}^\top
   \end{pmatrix}
   \]
 \end{theorem}
-\begin{proof}
-\end{proof}
+
 \begin{theorem}[Commutator relations of the algebra $\mathfrak{so}(1,3)$]
   The generators $J_i$ (rotations) and $K_i$ (boosts) satisfy:
   \[
@@ -460,24 +460,6 @@ We begin with the group of rotations in three dimensions and its algebra, which 
   \]
   where $\epsilon_{ijk}$ is the fully antisymmetric symbol.
 \end{theorem}
-
-
-\section{Symmetry Transformations of Spacetime}
-\label{sec:spacetime}
-
-To describe the symmetries of spacetime consistent with special relativity, we consider transformations preserving the spacetime interval defined by a metric with signature \((+,-,-,-)\).
-
-\subsection{The Group of Spacetime Rotations and Boosts}
-
-The set of all linear transformations that preserve this spacetime interval forms a group of matrices \( \Lambda \in \mathbb{R}^{4 \times 4} \) satisfying
-\[
-\Lambda^\top \eta \, \Lambda = \eta,
-\]
-where \(\eta = \mathrm{diag}(1, -1, -1, -1)\) is the spacetime metric tensor.
-
-This group includes:
-- Spatial rotations (which act like ordinary rotations on space coordinates),
-- Boosts (which mix time and space coordinates corresponding to changing inertial frames moving at constant velocity).
 
 \subsection{Algebra of Spacetime Transformations}
 
