@@ -541,36 +541,38 @@ The invariance of the speed of light implies the invariance of the spacetime int
 
 \subsection{The Algebra of Spacetime Symmetries ($\mathfrak{so}(1,3)$)}
 \label{subsec:so13_algebra}
-The Lie algebra associated with the Lorentz group $\mathrm{SO}^+(1,3)$ is denoted $\mathfrak{so}(1,3)$.
-It consists of all \(4 \times 4\) real matrices \(X\) such that a curve $\Lambda(s) = \exp(sX)$ is in $\mathrm{SO}^+(1,3)$ for small $s$.
-Differentiating $\Lambda(s)^\top \eta \Lambda(s) = \eta$ at $s=0$ (where $\Lambda(0)=I$) yields the condition for elements $X \in \mathfrak{so}(1,3)$:
-\begin{equation*}
-  X^\top \eta + \eta X = 0.
-\end{equation*}
-This condition means $X$ is "$\eta$-antisymmetric" or "$\eta$-skew-adjoint".
 
-A convenient basis for this 6-dimensional algebra, acting on coordinates
-\begin{equation*}
-  (x^0, x^1, x^2, x^3) \equiv (t,x,y,z),
-\end{equation*}
-is given by the following generators:
-\begin{itemize}
+\begin{definition}
+  The algebra associated with the group $\mathrm{SO}^+(1,3)$ is denoted $\mathfrak{so}(1,3)$.
+  It consists of all \(4 \times 4\) real matrices \(X\) such that a curve $\Lambda(s) = \exp(sX)$ is in $\mathrm{SO}^+(1,3)$ for small $s$.
+  Differentiating $\Lambda(s)^\top \eta \Lambda(s) = \eta$ at $s=0$ (where $\Lambda(0)=I$) yields the condition for elements $X \in \mathfrak{so}(1,3)$:
+  \begin{equation*}
+    X^\top \eta + \eta X = 0.
+  \end{equation*}
+  This condition means $X$ is "$\eta$-antisymmetric" or "$\eta$-skew-adjoint".
+  A convenient basis for this 6-dimensional algebra, acting on coordinates
+  \begin{equation*}
+    (x^0, x^1, x^2, x^3) \equiv (t,x,y,z),
+  \end{equation*}
+  is given by the following generators:
+  \begin{itemize}
     \item Rotation generators:
-    \begin{itemize}
+      \begin{itemize}
         \item $J_1$: $(J_1)_{23} = -1, (J_1)_{32} = 1$
         \item $J_2$: $(J_2)_{13} = 1, (J_2)_{31} = -1$
         \item $J_3$: $(J_3)_{12} = -1, (J_3)_{21} = 1$
-    \end{itemize}
+      \end{itemize}
     \item Boost generators:
-    \begin{itemize}
+      \begin{itemize}
         \item $K_1$: $(K_1)_{01} = -1, (K_1)_{10} = -1$
         \item $K_2$: $(K_2)_{02} = -1, (K_2)_{20} = -1$
         \item $K_3$: $(K_3)_{03} = -1, (K_3)_{30} = -1$
     \end{itemize}
-\end{itemize}
-Note: These generators $X$ indeed satisfy $X^\top \eta + \eta X = 0$ with $\eta=\diag(-1,1,1,1)$.
-The verification for any specific generator involves direct matrix multiplication and addition, confirming the condition.
-(The reader is encouraged to verify this for one or two examples.)
+  \end{itemize}
+  Note: These generators $X$ indeed satisfy $X^\top \eta + \eta X = 0$ with $\eta=\diag(-1,1,1,1)$.
+  The verification for any specific generator involves direct matrix multiplication and addition, confirming the condition.
+  % TODO: This should be a theorem
+\end{definition}
 
 \begin{theorem}[Commutator relations of the algebra $\mathfrak{so}(1,3)$]\label{thm:so13_algebra_commutation_relations}
   The generators $J_i$ (rotations) and $K_i$ (boosts) satisfy the following commutation relations:
@@ -581,7 +583,14 @@ The verification for any specific generator involves direct matrix multiplicatio
   \end{align*}
   where $\epsilon_{ijk}$ is the fully antisymmetric symbol.
 \end{theorem}
-(Proof involves direct computation of the matrix commutators.)
+\begin{proof}
+    Similar to the $\mathrm{SO}(3)$ relations found in theorem \ref{thm:so3_commutation_relations}, this can be proven explicitly by multiplying each pair of generators and computing their commutators.
+  For example,
+  \begin{equation*}
+    [J_1, J_2] := J_1 J_2 - J_2 J_1 = J_3,
+  \end{equation*}
+  The other pairs can be easily checked the same way.
+\end{proof}
 
 Finite Lorentz transformations can be constructed by exponentiating linear combinations of these generators:
 \begin{equation*}
