@@ -136,17 +136,17 @@ A key example is the group of rotations in three dimensions, consisting of all o
 \end{theorem}
 \begin{proof}
   Let $R = \exp(X)$ for some $X \in \mathfrak{so}(3)$. Since $\mathfrak{so}(3)$ consists of skew-symmetric matrices, we have $X^\top = -X$. Using the identity $\left(\exp(X)\right)^\top = \exp(X^\top)$, it follows:
-  \[
-  R^\top R = \exp(X^\top)\exp(X) = \exp(-X)\exp(X).
-  \]
+  \begin{equation*}
+    R^\top R = \exp(X^\top)\exp(X) = \exp(-X)\exp(X).
+  \end{equation*}
   Since $X$ commutes with $-X$ (as $[X, -X] = 0$ for all matrices), we may combine the exponents:
-  \[
-  R^\top R = \exp(-X + X) = \exp(0) = I,
-  \]
+  \begin{equation*}
+    R^\top R = \exp(-X + X) = \exp(0) = I,
+  \end{equation*}
   so $R$ is orthogonal. Next, we use the identity $\det(\exp(X)) = \exp(\tr(X))$, valid for all square matrices $X$. Since every $X \in \mathfrak{so}(3)$ is skew-symmetric, we have $\tr(X) = 0$, so:
-  \[
-  \det(\exp(X)) = \exp(\tr(X)) = \exp(0) = 1.
-  \]
+  \begin{equation*}
+    \det(\exp(X)) = \exp(\tr(X)) = \exp(0) = 1.
+  \end{equation*}
   Therefore, $R = \exp(X)$ is a special orthogonal matrix: $\exp(X) \in \mathrm{SO}(3)$.
 \end{proof}
 
@@ -390,10 +390,9 @@ These postulates, particularly the second one, have profound consequences, leadi
         = \eta.
       \end{equation*}
       \item $\det(\Lambda_R) = 1$:
-      The determinant of a block diagonal matrix is the product of the determinants of its diagonal blocks.
-      \[
-      \det(\Lambda_R) = \det(1) \cdot \det(R_3) = 1 \cdot 1 = 1,
-      \]
+      \begin{equation*}
+        \det(\Lambda_R) = \det(1) \cdot \det(R_3) = 1 \cdot 1 = 1,
+      \end{equation*}
       since $\det(R_3)=1$ for $R_3 \in \mathrm{SO}(3)$.
       \item $(\Lambda_R)^0{}_0 \geq 1$:
       The $(0,0)$ component of $\Lambda_R$ is $(\Lambda_R)^0{}_0 = 1$, which satisfies $1 \geq 1$.
@@ -538,8 +537,12 @@ A convenient basis for this 6-dimensional algebra is given by:
     These are analogous to the $\mathfrak{so}(3)$ generators, embedded in $4 \times 4$ matrices.
     \item Three generators of boosts, $K_1, K_2, K_3$:
     \begin{equation*} 
-      K_1 = \begin{pmatrix} 0&-1&0&0 \\ -1&0&0&0 \\ 0&0&0&0 \\ 0&0&0&0 \end{pmatrix}, \quad
-      K_2 = \begin{pmatrix} 0&0&-1&0 \\ 0&0&0&0 \\ -1&0&0&0 \\ 0&0&0&0 \end{pmatrix}, \quad
+      K_1 = \begin{pmatrix} 0&-1&0&0 \\ -1&0&0&0 \\ 0&0&0&0 \\ 0&0&0&0 \end{pmatrix},
+    \end{equation*}
+    \begin{equation*}
+      K_2 = \begin{pmatrix} 0&0&-1&0 \\ 0&0&0&0 \\ -1&0&0&0 \\ 0&0&0&0 \end{pmatrix},
+    \end{equation*}
+    \begin{equation*}
       K_3 = \begin{pmatrix} 0&0&0&-1 \\ 0&0&0&0 \\ 0&0&0&0 \\ -1&0&0&0 \end{pmatrix}.
     \end{equation*}
 \end{itemize}
@@ -583,13 +586,13 @@ The Lorentz transformations have profound implications for how different inertia
 
 \subsection{Structure of Flat Spacetime}
 \label{subsec:sr_structure}
-Special relativity operates in a four-dimensional **flat spacetime**. Its geometric structure is defined by a metric tensor, $\eta_{\mu\nu}$, which is used to calculate the spacetime interval between events.
+Special relativity operates in a four-dimensional \emph{flat spacetime}. Its geometric properties are defined by a metric tensor, $\eta_{\mu\nu}$, used to calculate spacetime intervals.
 
 Consistent with the definition of the Lorentz group $\mathrm{SO}^+(1,3)$ used earlier, we adopt the metric signature $(-1, +1, +1, +1)$. In standard Cartesian coordinates $(x^0, x^1, x^2, x^3) = (ct, x, y, z)$ (with $c=1$ in natural units), the metric tensor is:
 \begin{equation*}
   \eta_{\mu\nu} = \begin{pmatrix} -1 & 0 & 0 & 0 \\ 0 & 1 & 0 & 0 \\ 0 & 0 & 1 & 0 \\ 0 & 0 & 0 & 1 \end{pmatrix}.
 \end{equation*}
-The **invariant spacetime interval**, $s^2$ (or often $ds^2$ for infinitesimal separations), between two events separated by $dx^\mu = (dx^0, dx^1, dx^2, dx^3)$ is given by:
+The \emph{invariant spacetime interval}, $s^2$ (or often $ds^2$ for infinitesimal separations), between two events separated by $dx^\mu = (dx^0, dx^1, dx^2, dx^3)$ is given by:
 \begin{equation*}
   ds^2 = \eta_{\mu\nu} dx^\mu dx^\nu = -(dx^0)^2 + (dx^1)^2 + (dx^2)^2 + (dx^3)^2.
 \end{equation*}
