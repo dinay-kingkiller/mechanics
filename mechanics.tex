@@ -7,10 +7,13 @@
 
 % Declare Theorem Environments
 \newtheorem{theorem}{Theorem}[section]
-\newtheorem{definition}[theorem]{Definition}
-\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{lemma}{Lemma}[theorem]
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[theorem]
 \theoremstyle{remark}
 \newtheorem*{remark}{Remark}
+\newtheorem*{example}{Example}
+
 
 % Declare Math Operators
 \DeclareMathOperator{\arctanh}{arctanh}
@@ -29,39 +32,40 @@
 \maketitle
 
 \section{Introduction}
+\label{sec:intro}
 
-The goal of these notes is to develop a clear and mathematically grounded understanding of special and general relativity, culminating in the classical astrophysical problem of Mercury’s perihelion precession. This example serves as a rich case study that demonstrates the interplay between spacetime symmetries, geometry, and gravitational effects.
+The goal of these notes is to develop a clear and mathematically grounded understanding of the principles underlying classical mechanics, special relativity, and general relativity. We aim to build the formalism necessary to explore key physical phenomena, such as the precession of Mercury's orbit, the intricacies of satellite timekeeping, and the nature of spinning charged black holes.
 
-Because the language of continuous symmetries and curved spaces—expressed through structures such as transformation groups and differentiable manifolds—is often unfamiliar, the notes begin with the foundational example of the rotation group and its algebra. This accessible case introduces the core concepts and techniques before progressing to the more complex structures underlying relativity.
+We begin in Section~\ref{sec:cont_symm} by introducing continuous symmetries and their algebraic structure, specifically Lie algebras, using the familiar example of spatial rotations and the classical symmetry group of spacetime. Section~\ref{sec:sr} then transitions to the fabric of flat spacetime and the symmetries of special relativity, exploring the Lorentz group, its algebra, and the fundamental kinematic consequences. The full symmetry group of flat spacetime, the Poincaré group, and its role in defining particle properties like mass and spin through its Casimir invariants, is discussed in Section~\ref{sec:poincare_particle_states}.
+
+Following this, Section~\ref{sec:transition_gr} discusses the conceptual leap from special to general relativity, motivating the idea of gravity as spacetime curvature. The mathematical language of curved spacetime, differential geometry, is developed in Section~\ref{sec:math_gr}. This leads to Einstein's field equations in Section~\ref{sec:efe}, which describe how matter and energy dictate this curvature.
+
+With these tools, Section~\ref{sec:schwarzschild_tests} examines the spacetime geometry around a non-rotating, uncharged spherical mass, applying this to understand phenomena like the perihelion precession of Mercury, relativistic effects on clocks, and gravitational lensing. More complex scenarios involving rotating and charged massive objects, including the concept of an ergosphere, are explored in Section~\ref{sec:kerr_etc}. Finally, Section~\ref{sec:future_phenomena} briefly touches upon further striking phenomena and future directions in the study of spacetime and gravity.
 
 Throughout, the emphasis is on building intuition and formalism simultaneously, focusing on precise mathematical definitions and constructive examples. The intended audience is readers with some background in calculus and linear algebra, but no prior exposure to group theory or differential geometry is assumed.
 
-The notes are organized as follows: Section~\ref{sec:groups} introduces continuous symmetry groups and their algebras, starting from rotations; Section~\ref{sec:spacetime} develops the geometry of spacetime and the Minkowski metric; Section~\ref{sec:relativity} presents the formalism of special and general relativity; and Section~\ref{sec:mercury} concludes with the application to Mercury’s precession problem.
+\section{Continuous Symmetries and Their Algebraic Structure}
+\label{sec:cont_symm}
 
-\section{Continuous Symmetry Groups and Their Algebras}
-\label{sec:groups}
+In physics and mathematics, continuous symmetry groups describe transformations that preserve certain structures. These groups are smooth spaces with operations that vary smoothly. The algebra associated with such a group is the tangent space at the identity element, equipped with a bracket operation that encodes the infinitesimal structure of the group.
 
-In physics and mathematics, continuous symmetry groups describe transformations that preserve certain structures. These groups are smooth spaces with operations that vary smoothly.
-
-A key example is the group of rotations in three dimensions, consisting of all orthogonal \(3 \times 3\) matrices with determinant 1. These rotations preserve lengths and orientations in three-dimensional space.
-
-The algebra associated with such a group is the tangent space at the identity element, equipped with a bracket operation that encodes the infinitesimal structure of the group.
-
-We begin with the group of rotations in three dimensions and its algebra, which provides an accessible example to understand generators, commutation relations, and matrix exponentiation. This lays the groundwork for the more complex groups appearing in relativity.
-
-\subsection{The Rotation Group}
+\subsection{Foundational Example: The Group of Spatial Rotations (SO(3))}
+\label{subsec:so3}
+A key example is the group of rotations in three dimensions, consisting of all orthogonal \(3 \times 3\) matrices with determinant 1. These rotations preserve lengths and orientations in three-dimensional space. We begin with the group of rotations in three dimensions and its algebra, which provides an accessible example to understand generators, commutation relations, and matrix exponentiation. This lays the groundwork for the more complex groups appearing in relativity.
 
 \begin{definition}
   The rotation group is defined as
   \[
-  \mathrm{SO}(3) = \left\{ R \in \mathbb{R}^{3 \times 3} \middle| R^\top R = I, \quad \det(R) = 1 \right\}.
+  \mathrm{SO}(3) = \left\{ R \in \mathbb{R}^{3 \times 3} \middle|
+  R^\top R = I, \quad \det(R) = 1 \right\}.
   \]
 \end{definition}
 
-\begin{theorem}
+\begin{theorem}\label{thm:so3_algebra_skew_symmetric}
   The associated algebra consists of all $3 \times 3$ real skew-symmetric matrices:
   \[
-  \mathfrak{so}(3) = \left\{ X \in \mathbb{R}^{3 \times 3} \middle| X^\top = -X \right\}.
+  \mathfrak{so}(3) = \left\{ X \in \mathbb{R}^{3 \times 3} \middle|
+  X^\top = -X \right\}.
   \]
 \end{theorem}
 
@@ -98,7 +102,7 @@ We begin with the group of rotations in three dimensions and its algebra, which 
   \]
 \end{definition}
 
-\begin{theorem}
+\begin{theorem}\label{thm:so3_commutation_relations}
   These satisfy the commutation relations:
   \[
   [J_i, J_j] = \epsilon_{ijk} J_k,
@@ -124,7 +128,7 @@ We begin with the group of rotations in three dimensions and its algebra, which 
   \]
 \end{proof}
 
-\begin{theorem}
+\begin{theorem}\label{thm:so3_exp_map_in_SO3}
   The image of the exponential map of $\mathfrak{so}(3)$ is contained in $\mathrm{SO}(3)$:
   \[
   \forall X \in \mathfrak{so}(3):\ \exp(X) \in \mathrm{SO}(3).
@@ -146,13 +150,14 @@ We begin with the group of rotations in three dimensions and its algebra, which 
   Therefore, $R = \exp(X)$ is a special orthogonal matrix: $\exp(X) \in \mathrm{SO}(3)$.
 \end{proof}
 
-\subsection{The Classical Symmetry Group}
+\subsection{Broader Example: The Classical Symmetry Group of Spacetime}
+\label{subsec:csg}
 \begin{definition}
-  The \emph{classical symmetry group}, denoted $\mathrm{CSG}(3)$, is the group associated with classical physics. It acts on $\mathbb{R}^4$ (space and time) of the form:
+  The \emph{classical symmetry group}, denoted $\mathrm{CSG}(3)$, is the group associated with classical physics (pre-relativity). It acts on $\mathbb{R}^4$ (space and time) of the form:
   \[
   (t, \vec{x}) \mapsto (t + \tau, R \vec{x} + \vec{v} t + \vec{a}),
   \]
-  where $R \in \mathrm{SO}(3)$ is a rotation described in the previous subsection, $\vec{v} \in \mathbb{R}^3$ is a velocity (boost), $\vec{a} \in \mathbb{R}^3$ is a spatial translation, and $\tau \in \mathbb{R}$ is a time translation.
+  where $R \in \mathrm{SO}(3)$ is a rotation described in the previous subsection, $\vec{v} \in \mathbb{R}^3$ is a velocity (a "classical boost" or change of inertial frame), $\vec{a} \in \mathbb{R}^3$ is a spatial translation, and $\tau \in \mathbb{R}$ is a time translation. These transformations are also known as Galilean transformations.
 \end{definition}
 \begin{definition}
   If we use an augmented spacetime 5-vector in homogeneous coordinates,
@@ -258,7 +263,8 @@ We begin with the group of rotations in three dimensions and its algebra, which 
   \end{pmatrix}.
   \]
 \end{definition}
-\begin{theorem}[Commutator relations of the classical symmetry algebra $\mathfrak{csg}(3)$]
+
+\begin{theorem}[Commutator relations of the classical symmetry algebra $\mathfrak{csg}(3)$]\label{thm:csg3_commutation_relations}
   The generators \(J_i\) (rotations), \(K_i\) (boosts), \(P_i\) (spatial translations), and \(H\) (time translation) satisfy the following commutation relations:
   \[
   [J_i, J_j] = \epsilon_{ijk} J_k, \quad
@@ -278,7 +284,21 @@ We begin with the group of rotations in three dimensions and its algebra, which 
   where $\epsilon_{ijk}$ is the fully antisymmetric symbol.
 \end{theorem}
 
-\section{The Group of Spacetime Rotations and Boosts}
+\section{The Fabric of Flat Spacetime and its Symmetries (Special Relativity)}
+\label{sec:sr}
+
+\subsection{Redefining Space and Time: The Postulates}
+\label{subsec:sr_postulates}
+The theory of Special Relativity, formulated by Albert Einstein in 1905, revolutionized our understanding of space and time. It is built upon two fundamental postulates:
+
+\begin{enumerate}
+    \item \textbf{The Principle of Relativity:} The laws of physics take the same form in all inertial frames of reference. This means there is no "absolute" rest frame; any inertial frame is equally valid for describing physical phenomena.
+    \item \textbf{The Principle of the Constancy of the Speed of Light:} The speed of light in a vacuum, denoted $c$, has the same value for all inertial observers, regardless of the motion of the light source or the motion of the observer.
+\end{enumerate}
+These postulates, particularly the second one, have profound consequences, leading to a departure from classical (Galilean) notions of space and time and requiring a new set of transformation laws between inertial frames—the Lorentz transformations. The invariance of the speed of light implies the invariance of the spacetime interval, which is the cornerstone for defining the geometry of flat spacetime and its symmetry group.
+
+\subsection{Symmetries of Flat Spacetime: The Proper Orthochronous Spacetime Symmetry Group ($\mathrm{SO}^+(1,3)$)}
+\label{subsec:so13_group}
 \begin{definition}[Proper orthochronous spacetime symmetry group]
   Let $\eta$ be the flat spacetime metric tensor:
   \[
@@ -290,50 +310,92 @@ We begin with the group of rotations in three dimensions and its algebra, which 
   \]
   The subgroup of these matrices with determinant $+1$ and with $\Lambda^0{}_0 \geq 1$ (preserving time orientation) is called the \emph{proper orthochronous spacetime symmetry group}, denoted
   \[
-  \mathrm{SO}^+(1,3) = \left\{ \Lambda \in \mathrm{GL}(4,\mathbb{R}) \middle| \Lambda^\top \eta \Lambda = \eta,\ \det \Lambda = 1,\ \Lambda^0{}_0 \geq 1 \right\}.
+  \mathrm{SO}^+(1,3) = \left\{ \Lambda \in \mathrm{GL}(4,\mathbb{R}) \middle|
+  \Lambda^\top \eta \Lambda = \eta,\ \det \Lambda = 1,\ \Lambda^0{}_0 \geq 1 \right\}.
   \]
 \end{definition}
 
-\begin{theorem}
-  Rotations satisfy the conditions for $\mathrm{SO}^+(1,3)$. For $R_3\in\mathrm{SO}(3)$
+\begin{theorem}\label{thm:so3_rotations_in_so13}
+  Rotations in $\mathrm{SO}(3)$ are a subgroup of $\mathrm{SO}^+(1,3)$. For $R_3\in\mathrm{SO}(3)$, the $4 \times 4$ matrix
   \[
-  \Lambda = 
+  \Lambda_R =
   \begin{pmatrix}
     1 & 0 \\
     0 & R_3
-  \end{pmatrix} \in \mathrm{SO}^+(1,3).
+  \end{pmatrix} \text{ is in } \mathrm{SO}^+(1,3).
   \]
+  (Here, $0$ denotes row or column vectors of zeros of appropriate size).
 \end{theorem}
 \begin{proof}
-  Since $\Lambda$ only acts on space and $R_3^\top R_3=I$
-  \[
-  \Lambda^\top\eta \Lambda =
-  \begin{pmatrix}
-    1 & 0 \\
-    0 & R_3
-  \end{pmatrix}
-  \begin{pmatrix}
-    -1 & 0 \\
-    0 & I_3
-  \end{pmatrix}
-  \begin{pmatrix}
-    1 & 0 \\
-    0 & R_3
-  \end{pmatrix} =
-  \begin{pmatrix}
-    -1 & 0 \\
-    0 & R_3^\top R_3
-  \end{pmatrix} =
-  \begin{pmatrix}
-    -1 & 0 \\
-    0 & I_3
-  \end{pmatrix}
-  = \eta  
-  \]
+  We check the conditions for $\Lambda_R \in \mathrm{SO}^+(1,3)$:
+  \begin{enumerate}
+      \item $\Lambda_R^\top \eta \Lambda_R = \eta$:
+      \[
+      \Lambda_R^\top\eta \Lambda_R =
+      \begin{pmatrix}
+        1 & 0 \\
+        0 & R_3
+      \end{pmatrix}^\top
+      \begin{pmatrix}
+        -1 & 0 \\
+        0 & I_3
+      \end{pmatrix}
+      \begin{pmatrix}
+        1 & 0 \\
+        0 & R_3
+      \end{pmatrix} =
+      \begin{pmatrix}
+        1 & 0 \\
+        0 & R_3^\top
+      \end{pmatrix}
+      \begin{pmatrix}
+        -1 & 0 \\
+        0 & I_3
+      \end{pmatrix}
+      \begin{pmatrix}
+        1 & 0 \\
+        0 & R_3
+      \end{pmatrix}
+      \]
+      \[
+      =
+      \begin{pmatrix}
+        1 & 0 \\
+        0 & R_3^\top
+      \end{pmatrix}
+      \begin{pmatrix}
+        -1 & 0 \\
+        0 & R_3
+      \end{pmatrix}
+      =
+      \begin{pmatrix}
+        -1 & 0 \\
+        0 & R_3^\top R_3
+      \end{pmatrix}.
+      \]
+      Since $R_3 \in \mathrm{SO}(3)$, we have $R_3^\top R_3 = I_3$. Thus,
+      \[
+      \Lambda_R^\top\eta \Lambda_R =
+      \begin{pmatrix}
+        -1 & 0 \\
+        0 & I_3
+      \end{pmatrix}
+      = \eta.
+      \]
+      \item $\det(\Lambda_R) = 1$:
+      The determinant of a block diagonal matrix is the product of the determinants of its diagonal blocks.
+      \[
+      \det(\Lambda_R) = \det(1) \cdot \det(R_3) = 1 \cdot 1 = 1,
+      \]
+      since $\det(R_3)=1$ for $R_3 \in \mathrm{SO}(3)$.
+      \item $(\Lambda_R)^0{}_0 \geq 1$:
+      The $(0,0)$ component of $\Lambda_R$ is $(\Lambda_R)^0{}_0 = 1$, which satisfies $1 \geq 1$.
+  \end{enumerate}
+  All conditions are met, so $\Lambda_R \in \mathrm{SO}^+(1,3)$.
 \end{proof}
 
-\begin{lemma}
-  For a boost in the $x$-direction that preserves the interval defined by the flat metric, the transformation matrix $\Lambda\in\mathrm{SO}(1,1)$ can be written as
+\begin{lemma}\label{lem:boost_x_direction_so11}
+  For a boost in the $x$-direction that preserves the interval defined by the flat metric, the transformation matrix $\Lambda\in\mathrm{SO}(1,1)$ (a subgroup of $\mathrm{SO}^+(1,3)$ acting on $t,x$) can be written as
   \[
   \Lambda =
   \begin{pmatrix}
@@ -341,7 +403,7 @@ We begin with the group of rotations in three dimensions and its algebra, which 
     -\gamma v & \gamma
   \end{pmatrix},
   \]
-  where $\gamma = \frac{1}{\sqrt{1 - v^2}}$ and the \emph{speed} $v \in (-1,1)$ is expressed in natural units. Alternatively, in terms of the \emph{rapidity} parameter $\phi := \arctanh v$, the matrix becomes
+  where $\gamma = \frac{1}{\sqrt{1 - v^2}}$ and the \emph{speed} $v \in (-1,1)$ is expressed in natural units ($c=1$). Alternatively, in terms of the \emph{rapidity} parameter $\phi := \arctanh v$, the matrix becomes
   \[
   \Lambda =
   \begin{pmatrix}
@@ -350,205 +412,342 @@ We begin with the group of rotations in three dimensions and its algebra, which 
   \end{pmatrix}.
   \]
 \end{lemma}
-
 \begin{proof}
-  Reduce the complexity of the problem to an object traveling in the $x$ direction. Then the symmetry transformation should only change $t$ and $x$.
+  Consider a transformation acting only on the $t$ (or $x^0$) and $x$ (or $x^1$) coordinates:
   \[
-  \begin{aligned}
-    t' &= A t + B x \\
-    x' &= C t + D x
-  \end{aligned}
+  \begin{pmatrix} t' \\ x' \end{pmatrix} = \begin{pmatrix} A & B \\ C & D \end{pmatrix} \begin{pmatrix} t \\ x \end{pmatrix}.
   \]
-  Or
+  Let $\Lambda_{1+1} = \begin{pmatrix} A & B \\ C & D \end{pmatrix}$. We require this transformation to preserve the 2D flat spacetime interval, defined by $\eta_{1+1} := \diag(-1, 1)$. The condition is $\Lambda_{1+1}^\top \eta_{1+1} \Lambda_{1+1} = \eta_{1+1}$.
+  Expanding this:
   \[
-  \Lambda =
-  \begin{pmatrix}
-    A & B \\
-    C & D
-  \end{pmatrix}
+  \begin{pmatrix} A & C \\ B & D \end{pmatrix}
+  \begin{pmatrix} -1 & 0 \\ 0 & 1 \end{pmatrix}
+  \begin{pmatrix} A & B \\ C & D \end{pmatrix}
+  =
+  \begin{pmatrix} -A^2 + C^2 & -AB + CD \\ -AB + CD & -B^2 + D^2 \end{pmatrix}
+  =
+  \begin{pmatrix} -1 & 0 \\ 0 & 1 \end{pmatrix}.
   \]
-  We are only interested in linear transformations $\Lambda$ that preserve the interval defined by a flat metric tensor
-  \[
-  \Lambda^\top \eta \Lambda = \eta
-  \]
-  where in this case $\eta := \diag(-1, 1)$ is the metric of flat spacetime. Multiplying this out gives
-  \[
-  \begin{pmatrix}
-    -A^2 + C^2 & -AB + CD \\
-    -AB + CD & -B^2 + D^2
-  \end{pmatrix} =
-  \begin{pmatrix}
-    -1 & 0 \\
-    0 & 1
-  \end{pmatrix}
-  \]
-  This yields a system of 3 equations, which along with the restriction $\det \Lambda = 1$ gives
-  \[
-  \begin{aligned}
-    - A^2 + C^2 &= -1 \\
-    - AB + CD &= 0 \\
-    - B^2 + D^2 &= 1 \\
-    AD - BC &= 1
-  \end{aligned}
-  \]
-  We introduce the \emph{rapidity} parameter $\phi$ as a way to parameterize the system of equations
-  \[
-  A = D = \cosh \phi, \quad B = C = \sinh \phi
-  \]
-  Substituting into the equations, we get
-  \[
-  \begin{aligned}
-    - \cosh^2 \phi + \sinh^2 \phi &= -1 \\
-    - \cosh \phi \sinh \phi + \sinh \phi \cosh \phi &= 0 \\
-    - \sinh^2 \phi + \cosh^2 \phi &= 1 \\
-    \cosh^2 \phi - \sinh^2 \phi &= 1
-  \end{aligned}
-  \]
-  which all satisfy the identity $\cosh^2 \phi - \sinh^2 \phi = 1$. This parameterization also meets the requirement:
-  \[
-  \Lambda^0{}_0 = \cosh \phi > 0 \quad \text{for all } \phi \in \mathbb{R}
-  \]
-  To relate this to the speed $v$, consider a particle at rest in the primed frame ($x' = 0$):
-  \[
-  x' = t \cosh \phi - x \sinh \phi = 0
-  \]
-  Solving for $v := \frac{x}{t} = \tanh \phi$
-  \[
-  1 = \cosh^2 \phi - \sinh^2 \phi = \cosh^2 \phi (1 - v^2)
-  \]
-  which implies
-  \[
-  \cosh \phi = \frac{1}{\sqrt{1 - v^2}}, \quad \sinh \phi = \frac{v}{\sqrt{1 - v^2}}
-  \]
-  This implies a maximum speed $|v| < 1$, a feature of flat metric symmetry. Defining $\gamma := \frac{1}{\sqrt{1 - v^2}}$, the boost becomes
+  This yields the system of equations:
+  \begin{align}
+    -A^2 + C^2 &= -1 \label{eq:boost_AC_relation} \\ 
+    -AB + CD &= 0 \label{eq:boost_ABCD_relation} \\ 
+    -B^2 + D^2 &= 1 \label{eq:boost_BD_relation}
+  \end{align}
+  And the determinant condition for a special transformation (unit determinant):
+  \begin{align}
+    AD-BC &= 1 \label{eq:boost_determinant}
+  \end{align}
+  From Eq.~\eqref{eq:boost_AC_relation}, we rearrange to $A^2 = 1 + C^2$. Since $C^2 \geq 0$, this implies $A^2 \geq 1$, so $|A| \geq 1$.
+  To ensure that the transformation does not reverse the direction of time (i.e., it is orthochronous), we impose the physical condition $A > 0$. Combined with $|A| \geq 1$, this leads to the requirement $A \geq 1$. This is a defining characteristic of the orthochronous Lorentz transformations we are considering.
+
+  Similarly, from Eq.~\eqref{eq:boost_BD_relation}, we rearrange to $D^2 = 1 + B^2$. Since $B^2 \geq 0$, this implies $D^2 \geq 1$, so $|D| \geq 1$.
+  The choice between $D \geq 1$ and $D \leq -1$ determines the relative orientation of the spatial $x'$-axis. For a "standard" boost along the positive $x$-direction, which does not involve an additional spatial reflection (e.g., $x \to -x$), we choose the convention $D \geq 1$. If $D \leq -1$, the transformation would correspond to a boost combined with such a reflection.
+
+  Given $A \geq 1$, the equation $A^2 - C^2 = 1$ (from Eq.~\eqref{eq:boost_AC_relation}) allows us to parameterize $A = \cosh\phi_A$ and $C = s_C \sinh\phi_A$ for some real parameter $\phi_A$ and $s_C = \pm 1$. (Since $\cosh\phi_A \ge 1$ is always true, this parameterization is valid for $A \ge 1$).
+  Similarly, given $D \geq 1$, the equation $D^2 - B^2 = 1$ (from Eq.~\eqref{eq:boost_BD_relation}) allows us to parameterize $D = \cosh\phi_D$ and $B = s_B \sinh\phi_D$ for some real parameter $\phi_D$ and $s_B = \pm 1$.
+
+  Now substitute these parameterizations into Eq.~\eqref{eq:boost_ABCD_relation} ($AB = CD$):
+  \[ (\cosh\phi_A)(s_B \sinh\phi_D) = (s_C \sinh\phi_A)(\cosh\phi_D). \]
+  Assuming a non-trivial boost (so that $\sinh\phi_A \neq 0$ and $\sinh\phi_D \neq 0$), we can divide by the product $\cosh\phi_A \cosh\phi_D$. Since $\cosh\phi_A \ge 1$ and $\cosh\phi_D \ge 1$, this yields:
+  \[ s_B \tanh\phi_D = s_C \tanh\phi_A. \]
+  For a single, simple transformation (represented by a single rapidity $\phi$), we expect $\phi_A$ and $\phi_D$ to be the same or directly related. If we set $\phi_A = \phi_D =: \phi$, then this equation implies $s_B = s_C =: s$.
+  So our parameters become: $A = \cosh\phi$, $C = s \sinh\phi$, $D = \cosh\phi$, $B = s \sinh\phi$.
+
+  Next, use the determinant condition, Eq.~\eqref{eq:boost_determinant}: $AD-BC=1$:
+  \[ (\cosh\phi)(\cosh\phi) - (s \sinh\phi)(s \sinh\phi) = \cosh^2\phi - s^2 \sinh^2\phi = 1. \]
+  Since $s^2 = (\pm 1)^2 = 1$, this simplifies to $\cosh^2\phi - \sinh^2\phi = 1$. This is the fundamental hyperbolic identity, which is always true for any real $\phi$.
+  Thus, the parameters $A=\cosh\phi, D=\cosh\phi, B=s\sinh\phi, C=s\sinh\phi$ satisfy all conditions derived from metric preservation and unit determinant.
+  The matrix is $\Lambda_{1+1} = \begin{pmatrix} \cosh\phi & s\sinh\phi \\ s\sinh\phi & \cosh\phi \end{pmatrix}$.
+
+  The specific form stated in the lemma, $\Lambda = \begin{pmatrix} \cosh\phi & -\sinh\phi \\ -\sinh\phi & \cosh\phi \end{pmatrix}$, corresponds to choosing the sign factor $s=-1$.
+  This means $A = \cosh\phi, B = -\sinh\phi, C = -\sinh\phi, D = \cosh\phi$. This is the standard parameterization for a boost.
+
+  To relate $\phi$ to the speed $v$: consider the origin of the $S'$ frame ($x'=0$). It moves with velocity $v$ in the $S$ frame, so its worldline is $x=vt$.
+  Substituting into $x' = C t + D x$:
+  \[ 0 = C t + D (vt) = (C + Dv)t. \]
+  For this to hold for all $t \neq 0$, we need $C+Dv=0$, so $v = -C/D$.
+  Using $C = -\sinh\phi$ and $D = \cosh\phi$ (which corresponds to our choice $s=-1$):
+  \[ v = -(-\sinh\phi) / (\cosh\phi) = \tanh\phi. \]
+  Thus, the rapidity $\phi = \arctanh v$.
+  Given $v = \tanh\phi$:
+  \[ 1 - v^2 = 1 - \tanh^2\phi = \mathrm{sech}^2\phi = \frac{1}{\cosh^2\phi}. \]
+  So, $\cosh\phi = \frac{1}{\sqrt{1-v^2}}$, which is defined as the Lorentz factor $\gamma$.
+  And $\sinh\phi = \tanh\phi \cosh\phi = v\gamma$.
+  This implies that the speed $|v| < 1$ (since $\phi$ is real, $\tanh\phi \in (-1,1)$).
+  Substituting $\cosh\phi = \gamma$ and $\sinh\phi = v\gamma$ (with $s=-1$ implicitly included in the signs of $B$ and $C$) back into the matrix form $A=\cosh\phi, B=-\sinh\phi, C=-\sinh\phi, D=\cosh\phi$ gives
   \[
   \Lambda =
   \begin{pmatrix}
     \gamma & -\gamma v \\
     -\gamma v & \gamma
-  \end{pmatrix}
+  \end{pmatrix}.
   \]
 \end{proof}
 
-\begin{theorem}
-  Boosts satisfy the conditions for $\mathrm{SO}^+(1,3)$
+\begin{theorem}\label{thm:general_boost_so13}
+  A general boost in an arbitrary direction $\hat{n}$ (a unit 3-vector) with speed $v$ is given by the $4 \times 4$ matrix $\Lambda_B \in \mathrm{SO}^+(1,3)$:
   \[
-  \Lambda =
+  \Lambda_B =
   \begin{pmatrix}
     \gamma & -\gamma v \hat{n}^\top \\
     -\gamma v \hat{n} & I_3 + \left(\gamma-1\right)\hat{n}\hat{n}^\top
-  \end{pmatrix} \in \mathrm{SO}^+(1,3)
+  \end{pmatrix}
   \]
-  where $\gamma=\frac{1}{\sqrt{1-v^2}}$ and \emph{speed} in natural units $v\in(-1,1)$. Or, in terms of the \emph{rapidity} parameter $\phi:=\arctanh v$
+  where $\gamma=\frac{1}{\sqrt{1-v^2}}$. In terms of rapidity $\phi=\arctanh v$:
   \[
-  \Lambda =
+  \Lambda_B =
   \begin{pmatrix}
     \cosh \phi & -\sinh \phi \hat{n}^\top \\
     -\sinh \phi \hat{n} & I_3 + (\cosh \phi - 1) \hat{n} \hat{n}^\top
-  \end{pmatrix}
+  \end{pmatrix}.
   \]
+  (Proof omitted here but involves verifying $\Lambda_B^\top \eta \Lambda_B = \eta$, $\det(\Lambda_B)=1$, and $(\Lambda_B)^0{}_0 \ge 1$).
 \end{theorem}
 
-\begin{theorem}[Commutator relations of the algebra $\mathfrak{so}(1,3)$]
-  The generators $J_i$ (rotations) and $K_i$ (boosts) satisfy:
-  \[
-  \begin{aligned}
-    [J_i, J_j] &= \epsilon_{ijk} J_k, \\
-    [J_i, K_j] &= \epsilon_{ijk} K_k, \\
-    [K_i, K_j] &= -\epsilon_{ijk} J_k,
-  \end{aligned}
-  \]
-  where $\epsilon_{ijk}$ is the fully antisymmetric symbol.
-\end{theorem}
 
-\subsection{Algebra of Spacetime Transformations}
-
-The algebra associated with this group is the tangent space at the identity matrix consisting of all \(4 \times 4\) matrices \(X\) such that
+\subsection{The Algebra of Spacetime Symmetries ($\mathfrak{so}(1,3)$)}
+\label{subsec:so13_algebra}
+The Lie algebra associated with the Lorentz group $\mathrm{SO}^+(1,3)$ is denoted $\mathfrak{so}(1,3)$. It consists of all \(4 \times 4\) real matrices \(X\) such that a curve $\Lambda(s) = \exp(sX)$ is in $\mathrm{SO}^+(1,3)$ for small $s$. Differentiating $\Lambda(s)^\top \eta \Lambda(s) = \eta$ at $s=0$ (where $\Lambda(0)=I$) yields the condition for elements $X \in \mathfrak{so}(1,3)$:
 \[
 X^\top \eta + \eta X = 0.
 \]
+This condition means $X$ is "$\eta$-antisymmetric" or "$\eta$-skew-adjoint".
 
-This condition implies the algebra consists of matrices antisymmetric with respect to the metric \(\eta\).
+A convenient basis for this 6-dimensional algebra is given by:
+\begin{itemize}
+    \item Three generators of spatial rotations, $J_1, J_2, J_3$:
+    \[ J_1 = \begin{pmatrix} 0&0&0&0 \\ 0&0&0&0 \\ 0&0&0&-1 \\ 0&0&1&0 \end{pmatrix}, \
+       J_2 = \begin{pmatrix} 0&0&0&0 \\ 0&0&0&1 \\ 0&0&0&0 \\ 0&-1&0&0 \end{pmatrix}, \
+       J_3 = \begin{pmatrix} 0&0&0&0 \\ 0&0&-1&0 \\ 0&1&0&0 \\ 0&0&0&0 \end{pmatrix}.
+    \]
+    These are analogous to the $\mathfrak{so}(3)$ generators, embedded in $4 \times 4$ matrices.
+    \item Three generators of boosts, $K_1, K_2, K_3$:
+    \[ K_1 = \begin{pmatrix} 0&-1&0&0 \\ -1&0&0&0 \\ 0&0&0&0 \\ 0&0&0&0 \end{pmatrix}, \
+       K_2 = \begin{pmatrix} 0&0&-1&0 \\ 0&0&0&0 \\ -1&0&0&0 \\ 0&0&0&0 \end{pmatrix}, \
+       K_3 = \begin{pmatrix} 0&0&0&-1 \\ 0&0&0&0 \\ 0&0&0&0 \\ -1&0&0&0 \end{pmatrix}.
+    \]
+\end{itemize}
 
-\subsection{Generators of the Algebra}
 
-A convenient basis for this algebra splits into two parts:
-- Generators \(J_i\) of spatial rotations, which act on spatial coordinates and satisfy the same commutation relations as the rotation algebra.
-- Generators \(K_i\) of boosts, which mix time and space components.
+\begin{theorem}[Commutator relations of the algebra $\mathfrak{so}(1,3)$]\label{thm:so13_algebra_commutation_relations}
+  The generators $J_i$ (rotations) and $K_i$ (boosts) satisfy the following commutation relations:
+  \[
+  \begin{aligned}
+    \relax [J_i, J_j] &= \epsilon_{ijk} J_k, \\
+    \relax [J_i, K_j] &= \epsilon_{ijk} K_k, \\
+    \relax [K_i, K_j] &= -\epsilon_{ijk} J_k,
+  \end{aligned}
+  \]
+  where $\epsilon_{ijk}$ is the Levi-Civita symbol.
+\end{theorem}
+(Proof involves direct computation of the matrix commutators.)
 
-These satisfy the following bracket relations:
-\[
-[J_i, J_j] = \epsilon_{ijk} J_k,
-\]
-\[
-[J_i, K_j] = \epsilon_{ijk} K_k,
-\]
-\[
-[K_i, K_j] = -\epsilon_{ijk} J_k,
-\]
-where \(\epsilon_{ijk}\) is the fully antisymmetric symbol.
-
-\subsection{Exponentiating to Finite Transformations}
-
-Finite transformations in this group can be constructed by exponentiating linear combinations of these generators:
+Finite Lorentz transformations can be constructed by exponentiating linear combinations of these generators:
 \[
 \Lambda = \exp\left(\sum_i \theta_i J_i + \sum_i \phi_i K_i \right),
 \]
-where \(\theta_i\) parameterize rotations and \(\phi_i\) parameterize boosts.
+where $\vec{\theta} = (\theta_1, \theta_2, \theta_3)$ are rotation parameters (angle and axis) and $\vec{\phi} = (\phi_1, \phi_2, \phi_3)$ are boost parameters (rapidity and direction).
 
-This process generalizes the construction of rotations in three dimensions to transformations mixing space and time, fundamental to special relativity.
+\subsection{Kinematic Consequences}
+\label{subsec:sr_kinematics}
+The Lorentz transformations have profound implications for how different inertial observers measure time intervals and spatial lengths. These effects are not mere illusions but are fundamental to the nature of spacetime.
+% Placeholder for kinematic consequences. These can be revisited later with a more geometric approach if desired.
 
-\section{Spacetime Geometry and Tangent Structure}
-\label{sec:spacetime_geometry}
-
-The study of motion and curvature in both special and general relativity begins with the geometry of spacetime itself. In this framework, the geometry is encoded not in Euclidean distance, but in a structure defined by a metric tensor.
-
-\subsection{Spacetime Metric}
-
-Spacetime is modeled as a four-dimensional space with a metric tensor \(\eta_{\mu\nu}\) that measures intervals between events. In standard coordinates, this tensor takes the form:
+\subsection{Structure of Flat Spacetime}
+\label{subsec:sr_structure}
+Special relativity operates in a 4D flat spacetime. Its geometric structure is defined by a metric tensor, $\eta_{\mu\nu}$, which is used to calculate the spacetime interval between events. Consistent with the definition of the Lorentz group $\mathrm{SO}^+(1,3)$ used earlier, we adopt the metric signature $(-1, +1, +1, +1)$. In standard Cartesian coordinates, the metric tensor is
 \[
-\eta_{\mu\nu} = \mathrm{diag}(1, -1, -1, -1),
+\eta=\diag(-1,1,1,1)
 \]
-defining the invariant spacetime interval:
+The \emph{invariant spacetime interval}, $s^2$ (or often $ds^2$ for infinitesimal separations), between two events separated by $dx^\mu = (dx^0, dx^1, dx^2, dx^3)$ is given by:
 \[
-s^2 = \eta_{\mu\nu} x^\mu x^\nu = (x^0)^2 - (x^1)^2 - (x^2)^2 - (x^3)^2.
+ds^2 = \eta_{\mu\nu} dx^\mu dx^\nu = -(dx^0)^2 + (dx^1)^2 + (dx^2)^2 + (dx^3)^2.
 \]
-This interval remains unchanged under transformations in the spacetime symmetry group, and distinguishes between timelike, spacelike, and lightlike separations.
+This interval is invariant under Lorentz transformations (rotations and boosts). The nature of the interval between two events determines their causal relationship:
+\begin{itemize}
+    \item \textbf{Timelike interval}: $ds^2 < 0$. It is possible for a massive particle to travel between these events; one event can causally affect the other. The proper time $d\tau$ is defined by $d\tau^2 = -ds^2/c^2$ (or $d\tau^2 = -ds^2$ if $c=1$).
+    \item \textbf{Spacelike interval}: $ds^2 > 0$. It is not possible for a massive particle to travel between these events; they are causally disconnected in the sense that neither can lie in the past or future light cone of the other. The proper distance $d\sigma$ is $d\sigma^2 = ds^2$.
+    \item \textbf{Null (or lightlike) interval}: $ds^2 = 0$. Only massless particles (like photons) can travel along such an interval; these define the light cones.
+\end{itemize}
 
-\subsection{Tangent Spaces and Vectors}
+At every point in this spacetime, a **tangent space** can be defined. This is a vector space whose elements are 4-vectors, such as 4-displacement $dx^\mu$, 4-velocity $v^\mu$, 4-momentum $p^\mu$, etc. These vectors represent physical quantities or directions in spacetime. The metric tensor $\eta_{\mu\nu}$ defines an inner product on this tangent space: for two 4-vectors $A^\mu$ and $B^\nu$, their inner product is $\langle A, B \rangle = \eta_{\mu\nu} A^\mu B^\nu = A_\mu B^\mu = A^\mu B_\mu$.
 
-At every point in spacetime, one can define a tangent space, which locally resembles flat spacetime. Tangent vectors at a point represent possible directions of motion or change and can be added and scaled like vectors in ordinary space.
-
-A metric tensor acts on two tangent vectors \(u^\mu, v^\nu\) and produces a real number:
+A **4-velocity** $v^\mu = \frac{dx^\mu}{d\tau}$ describes the rate of change of spacetime coordinates $x^\mu$ with respect to the proper time $\tau$ along a particle's worldline. Proper time is the time measured by a clock moving with the particle. For a massive particle, its 4-velocity is normalized such that:
 \[
-\langle u, v \rangle = \eta_{\mu\nu} u^\mu v^\nu.
+\eta_{\mu\nu} v^\mu v^\nu = v^\mu v_\mu = -1 \quad (\text{with } c=1).
 \]
-This inner product generalizes the familiar dot product from Euclidean space but allows for negative values due to the signature of the metric.
+This normalization reflects that in the particle's own rest frame, its 4-velocity is purely in the time direction ($v^\mu_{rest} = (1,0,0,0)$ if $c=1$), and $d\tau^2 = -(dx^0_{rest})^2$. The metric and the concept of the invariant interval are thus fundamental to understanding motion and causality in special relativity.
 
-\subsection{Velocity Vectors and the Metric}
+\section{Symmetries in Special Relativity: The Poincaré Group and Particle States}
+\label{sec:poincare_particle_states}
 
-A velocity vector \(v^\mu = \frac{dx^\mu}{d\tau}\) describes the motion of a particle through spacetime. The metric applied to a velocity vector with itself yields:
-\[
-\eta_{\mu\nu} v^\mu v^\nu = 1,
-\]
-for particles moving slower than light, where \(\tau\) is the proper time measured along the path.
+This section explores the full symmetry group of flat spacetime, the Poincaré group, and its profound implications for defining fundamental particle properties.
 
-The metric thus provides a natural way to distinguish different types of motion, and will later allow us to define curvature and dynamics in curved spacetime as well.
+\subsection{Introduction to the Poincaré Group}
+\label{subsec:intro_poincare}
+% Key topics to cover:
+% - Extension of the Lorentz group to include spacetime translations.
+% - The 10 generators of the Poincaré group (rotations, boosts, and 4D translations).
+% (User to fill in detailed explanations)
 
-\section{Relativity and its Mathematical Foundations}
-\label{sec:relativity}
+\subsection{The Lie Algebra of the Poincaré Group}
+\label{subsec:poincare_algebra}
+% Key topics to cover:
+% - The commutation relations among the generators ($[P^\mu, P^\nu]$, $[M^{\mu\nu}, P^\rho]$, $[M^{\mu\nu}, M^{\rho\sigma}]$).
+% (User to fill in detailed explanations and derivations)
 
-The theory of relativity fundamentally redefines our understanding of space and time by introducing a four-dimensional spacetime manifold equipped with a metric tensor of signature \((+,-,-,-)\). Special relativity is characterized by invariance under the Poincaré group, which combines Lorentz transformations—rotations and boosts preserving the Minkowski metric—and spacetime translations. The algebraic structure of this group provides insight into the conserved quantities associated with spacetime symmetries via Noether’s theorem.
+\subsection{Noether's Theorem and Conservation Laws from Poincaré Invariance}
+\label{subsec:noether_poincare}
+% Key topics to cover:
+% - Brief statement of Noether's Theorem.
+% - Connection of Poincaré symmetries to conserved quantities:
+%   - Energy (from time translation invariance).
+%   - Momentum (from spatial translation invariance).
+%   - Angular Momentum (from rotational invariance).
+%   - Conservation related to boosts (motion of center of energy).
+% (User to fill in detailed explanations)
 
-General relativity extends this framework by promoting the metric tensor to a dynamic field that encodes the curvature of spacetime, governed by the Einstein field equations. The mathematical apparatus involves differential geometry, particularly the concepts of manifolds, tangent spaces, and tensor fields. This section develops the necessary background, beginning with a review of Lorentz transformations and the Poincaré algebra, before progressing to metric tensors on curved manifolds, geodesics, and curvature tensors essential for describing gravitational phenomena.
+\subsection{Casimir Invariants: Defining Intrinsic Particle Properties}
+\label{subsec:casimir_invariants}
+This subsection discusses operators that commute with all generators of the Poincaré algebra, leading to fundamental invariant properties of particles.
 
-\section{The Precession of Mercury’s Orbit}
-\label{sec:mercury}
+\subsubsection{What are Casimir Invariants?}
+\label{subsubsec:what_are_casimirs}
+% Key topics to cover:
+% - General definition of a Casimir invariant (or Casimir operator) for a Lie algebra.
+% - Their property of having constant eigenvalues on irreducible representations.
+% (User to fill in detailed explanations)
 
-The perihelion precession of Mercury’s orbit is a seminal observational phenomenon that challenged Newtonian gravity and provided empirical support for the relativistic description of gravitation. Classical Newtonian mechanics predicts orbital motion based on an inverse-square central force, resulting in closed elliptical orbits. However, observations show an additional precession unaccounted for by classical perturbations from other planets.
+\subsubsection{The $P^2$ Invariant: Mass}
+\label{subsubsec:p_squared_invariant}
+The first key Casimir invariant is $P^2 = P_\mu P^\mu$.
 
-General relativity explains this anomaly through the curvature of spacetime caused by the Sun’s mass. By modeling Mercury’s trajectory as a geodesic in the Schwarzschild metric, one derives corrections to the Newtonian orbital elements, resulting in a predicted advance of the perihelion that matches observations to high precision. This section presents the derivation of the relativistic corrections to Mercury’s orbit, starting from the Schwarzschild solution to Einstein’s field equations and applying perturbation techniques to the geodesic equations of motion.
+\paragraph{Proof that $P^2$ is a Casimir Invariant:}
+% This involves showing that $[P^2, P^\sigma] = 0$ and $[P^2, M^{\rho\sigma}] = 0$.
+\textit{[Proof to be filled in by user based on our previous discussion.]}
+
+\paragraph{Physical Significance of $P^2$:}
+The eigenvalue of $P^2$ is $m^2$ (or $-m^2 c^2$ depending on metric and $c$ conventions), where $m$ is the invariant rest mass of the particle. This demonstrates that mass is a fundamental Poincaré-invariant characteristic.
+% (User to elaborate)
+
+\subsubsection{The $W^2$ Invariant: Spin}
+\label{subsubsec:w_squared_invariant}
+The second key Casimir invariant is $W^2 = W_\mu W^\mu$, where $W_\mu = \frac{1}{2} \epsilon_{\mu\nu\rho\sigma} M^{\nu\rho} P^\sigma$ is the Pauli-Lubanski pseudovector.
+% Key topics to cover:
+% - Conceptual introduction to $W_\mu$ and $W^2$.
+% - Statement that $W^2$ is a Casimir invariant (proof can be noted as more complex and omitted or referenced).
+% - Its eigenvalue for massive particles: $-m^2 s(s+1)c^2$ (or similar depending on conventions), where $s$ is the spin.
+% - Its relation to helicity for massless particles.
+% (User to fill in detailed explanations)
+
+\subsection{The Role of Schur's Lemma: Why Casimir Eigenvalues Label Particles}
+\label{subsec:schurs_lemma_role}
+This subsection explains the mathematical theorem that underpins why Casimir invariants provide constant labels for irreducible representations.
+
+\subsubsection{Statement of Schur's Lemma}
+\label{subsubsec:schurs_lemma_statement}
+% State the relevant version of Schur's Lemma:
+% For a complex, finite-dimensional irreducible representation of a group, any operator that commutes
+% with all representation operators must be a scalar multiple of the identity.
+% (User to provide a precise statement)
+
+\subsubsection{Proof of Schur's Lemma}
+\label{subsubsec:schurs_lemma_proof}
+\textit{[Proof to be filled in by user based on our previous discussion. This involves showing that the eigenspace of the commuting operator is an invariant subspace, then using irreducibility.]}
+
+\subsubsection{Implication for Casimir Invariants}
+\label{subsubsec:schur_implication_casimir}
+Since Casimir invariants commute with all generators (and thus all elements of a representation), Schur's Lemma implies they act as a constant scalar (their eigenvalue) on any irreducible representation.
+% (User to elaborate on this connection)
+
+\subsection{Consequence: Classification of Particles in Special Relativity}
+\label{subsec:particle_classification_sr}
+% Key topics to cover:
+% - How the eigenvalues of $P^2$ (mass) and $W^2$ (spin) provide a fundamental classification scheme for elementary particles in relativistic quantum mechanics.
+% - Brief conceptual link to Wigner's classification of the irreducible representations of the Poincaré group.
+% (User to fill in detailed explanations)
 
 
+\section{Transition to Curved Spacetime (General Relativity)}
+\label{sec:transition_gr}
+The theory of special relativity, while revolutionary, is fundamentally a theory of flat spacetime. It does not incorporate gravity. Newtonian gravity, on the other hand, describes gravity as a force acting instantaneously at a distance, which is incompatible with the finite speed of light posited in special relativity. General relativity emerges from the need to reconcile these ideas.
+% User can add: Limitations of SR and Newtonian Gravity, The Equivalence Principle, Gravity as Spacetime Curvature
+
+\subsection{The Principle of Equivalence}
+% Placeholder
+
+\subsection{Gravity as Spacetime Curvature}
+% Placeholder
+
+\section{The Mathematical Language of Curved Spacetime (Differential Geometry)}
+\label{sec:math_gr}
+To describe gravity as the curvature of spacetime, we need the tools of differential geometry. Spacetime is no longer assumed to be flat but is instead a more general mathematical object called a manifold, equipped with a metric tensor that can vary from point to point.
+% User can add subsections:
+\subsection{Manifolds and Charts}
+% Placeholder
+\subsection{Tangent Spaces, Vectors, and Tensors in GR}
+% Placeholder
+\subsection{The Metric Tensor $g_{\mu\nu}$}
+% Placeholder
+\subsection{Covariant Derivative and Parallel Transport}
+% Placeholder
+\subsection{Geodesics: Paths of Freely Falling Particles}
+% Placeholder
+\subsection{Curvature: Riemann Tensor, Ricci Tensor, Ricci Scalar}
+% Placeholder
+
+\section{The Field Equations of Gravity: How Matter and Energy Dictate Spacetime Curvature}
+\label{sec:efe}
+% User can add content here
+\subsection{The Stress-Energy Tensor $T_{\mu\nu}$}
+% Placeholder
+\subsection{The Einstein Tensor $G_{\mu\nu}$}
+% Placeholder
+\subsection{The Equations: $G_{\mu\nu} = \frac{8\pi G}{c^4} T_{\mu\nu}$}
+% Placeholder
+
+\section{Gravity of a Non-Rotating, Uncharged Spherical Mass (and its Observational Tests)}
+\label{sec:schwarzschild_tests}
+One of the first and most important solutions to Einstein's field equations describes the spacetime outside a static, spherically symmetric, uncharged massive object. This is known as the Schwarzschild solution.
+
+\subsection{The Metric for a Spherical Mass (Schwarzschild Metric)}
+% Placeholder for derivation/presentation
+
+\subsection{Properties: Event Horizon, Gravitational Singularity}
+% Placeholder
+
+\subsection{Application 1: Perihelion Precession of Orbits (e.g., Mercury)}
+\label{subsec:mercury_precession}
+The perihelion precession of Mercury’s orbit is a seminal observational phenomenon that challenged Newtonian gravity and provided empirical support for the relativistic description of gravitation. Classical Newtonian mechanics predicts orbital motion based on an inverse-square central force, resulting in closed elliptical orbits. However, observations show an additional precession unaccounted for by classical perturbations from other planets. General relativity explains this anomaly through the curvature of spacetime caused by the Sun’s mass. By modeling Mercury’s trajectory as a geodesic in the Schwarzschild metric, one derives corrections to the Newtonian orbital elements, resulting in a predicted advance of the perihelion that matches observations to high precision. This section presents the derivation of the relativistic corrections to Mercury’s orbit, starting from the Schwarzschild solution to Einstein’s field equations and applying perturbation techniques to the geodesic equations of motion.
+
+\subsection{Application 2: Relativistic Effects on Clocks and Timekeeping (e.g., for Satellites/GPS)}
+% Placeholder for Gravitational Time Dilation, Combined Effects for GPS
+
+\subsection{Application 3: The Bending of Light and Gravitational Lensing}
+% Placeholder for Deflection of Light
+\subsubsection{The "Einstein Cross" and other lensing phenomena}
+% Placeholder for how multiple images form
+
+\section{Beyond Simple Cases: Rotating and Charged Massive Objects}
+\label{sec:kerr_etc}
+
+\subsection{Need for More General Solutions}
+% Placeholder
+
+\subsection{Rotating Massive Objects (e.g., Kerr solution)}
+% Placeholder for Frame-Dragging
+\subsubsection{The Ergosphere}
+% Placeholder for definition, boundaries, Penrose process concept
+
+\subsection{Charged, Non-Rotating Massive Objects (e.g., Reissner-Nordström solution)}
+% Placeholder
+
+\subsection{Charged AND Rotating Massive Objects (e.g., Kerr-Newman solution)}
+% Placeholder
+
+\section{Further Striking Phenomena and Future Directions}
+\label{sec:future_phenomena}
+% Placeholder for Gravitational Waves, Black Hole Thermodynamics, Wormholes, Cosmology, Recap.
 
 \end{document}
