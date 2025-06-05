@@ -243,6 +243,14 @@ This lays the groundwork for the more complex groups appearing in relativity.
   \end{gather*}
   where $\epsilon_{ijk}$ is the fully antisymmetric symbol.
 \end{theorem}
+\begin{proof}
+  Similar to the $\mathrm{SO}(3)$ relations found in theorem \ref{thm:so3_commutation_relations}, this can be proven explicitly by multiplying each pair of generators and computing their commutators.
+  For example,
+  \begin{equation*}
+    [J_1, J_2] := J_1 J_2 - J_2 J_1 = J_3,
+  \end{equation*}
+  The other pairs can be easily checked the same way.
+\end{proof}
 
 \section{The Fabric of Flat Spacetime and its Symmetries}
 \label{sec:sr}
@@ -541,7 +549,11 @@ Differentiating $\Lambda(s)^\top \eta \Lambda(s) = \eta$ at $s=0$ (where $\Lambd
 \end{equation*}
 This condition means $X$ is "$\eta$-antisymmetric" or "$\eta$-skew-adjoint".
 
-A convenient basis for this 6-dimensional algebra, acting on coordinates $(x^0, x^1, x^2, x^3) \equiv (t,x,y,z)$, is given by the following generators:
+A convenient basis for this 6-dimensional algebra, acting on coordinates
+\begin{equation*}
+  (x^0, x^1, x^2, x^3) \equiv (t,x,y,z),
+\end{equation*}
+is given by the following generators:
 \begin{itemize}
     \item Rotation generators:
     \begin{itemize}
