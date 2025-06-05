@@ -21,7 +21,7 @@
 \DeclareMathOperator{\tr}{tr}
 
 \begin{document}
-\title{Mechanics}
+\title{Symmetries, Spacetime, and Relativity}
 \author{}
 \date{\today}
 
@@ -175,110 +175,32 @@ A key example is the group of rotations in three dimensions, consisting of all o
   where $R \in \mathrm{SO}(3)$ is a rotation described in the previous subsection, $\vec{v} \in \mathbb{R}^3$ is a velocity, $\vec{a} \in \mathbb{R}^3$ is a spatial translation, and $\tau \in \mathbb{R}$ is a time translation.
 \end{definition}
 \begin{definition}
-  If we use an augmented spacetime 5-vector in homogeneous coordinates, $(t, x, y, z, 1)$, we can define the classical symmetry algebra $\mathfrak{csg}(3)$ in terms of its generators. The rotation generators $J_1$, $J_2$, and $J_3$ are:
-  \begin{equation*}
-    J_1 =
-    \begin{pmatrix}
-      0 & 0 & 0 & 0 & 0 \\
-      0 & 0 & 0 & 0 & 0 \\
-      0 & 0 & 0 & -1 & 0 \\
-      0 & 0 & 1 & 0 & 0 \\
-      0 & 0 & 0 & 0 & 0
-    \end{pmatrix},
-  \end{equation*}
-  \begin{equation*}
-    J_2 =
-    \begin{pmatrix}
-      0 & 0 & 0 & 0 & 0 \\
-      0 & 0 & 0 & 1 & 0 \\
-      0 & 0 & 0 & 0 & 0 \\
-      0 & -1 & 0 & 0 & 0 \\
-      0 & 0 & 0 & 0 & 0
-    \end{pmatrix},
-  \end{equation*}
-  \begin{equation*}
-    J_3 =
-    \begin{pmatrix}
-      0 & 0 & 0 & 0 & 0 \\
-      0 & 0 & -1 & 0 & 0 \\
-      0 & 1 & 0 & 0 & 0 \\
-      0 & 0 & 0 & 0 & 0 \\
-      0 & 0 & 0 & 0 & 0
-    \end{pmatrix},
-  \end{equation*}
-  the boost generators $K_1$, $K_2$, $K_3$ are:
-  \begin{equation*}
-    K_1 =
-    \begin{pmatrix}
-      0 & 1 & 0 & 0 & 0 \\
-      0 & 0 & 0 & 0 & 0 \\
-      0 & 0 & 0 & 0 & 0 \\
-      0 & 0 & 0 & 0 & 0 \\
-      0 & 0 & 0 & 0 & 0
-    \end{pmatrix},
-  \end{equation*}
-  \begin{equation*}
-    K_2 =
-    \begin{pmatrix}
-      0 & 0 & 1 & 0 & 0 \\
-      0 & 0 & 0 & 0 & 0 \\
-      0 & 0 & 0 & 0 & 0 \\
-      0 & 0 & 0 & 0 & 0 \\
-      0 & 0 & 0 & 0 & 0
-    \end{pmatrix},
-  \end{equation*}
-  \begin{equation*}
-    K_3 =
-    \begin{pmatrix}
-      0 & 0 & 0 & 1 & 0 \\
-      0 & 0 & 0 & 0 & 0 \\
-      0 & 0 & 0 & 0 & 0 \\
-      0 & 0 & 0 & 0 & 0 \\
-      0 & 0 & 0 & 0 & 0
-    \end{pmatrix},
-  \end{equation*}
-  the translation generators $P_1$, $P_2$, $P_3$ are:
-  \begin{equation*}
-    P_1 =
-    \begin{pmatrix}
-      0 & 0 & 0 & 0 & 0 \\
-      0 & 0 & 0 & 0 & 1 \\
-      0 & 0 & 0 & 0 & 0 \\
-      0 & 0 & 0 & 0 & 0 \\
-      0 & 0 & 0 & 0 & 0
-    \end{pmatrix},
-  \end{equation*}
-  \begin{equation*}
-    P_2 =
-    \begin{pmatrix}
-      0 & 0 & 0 & 0 & 0 \\
-      0 & 0 & 0 & 0 & 0 \\
-      0 & 0 & 0 & 0 & 1 \\
-      0 & 0 & 0 & 0 & 0 \\
-      0 & 0 & 0 & 0 & 0
-    \end{pmatrix},
-  \end{equation*}
-  \begin{equation*}
-    P_3 =
-    \begin{pmatrix}
-      0 & 0 & 0 & 0 & 0 \\
-      0 & 0 & 0 & 0 & 0 \\
-      0 & 0 & 0 & 0 & 0 \\
-      0 & 0 & 0 & 0 & 1 \\
-      0 & 0 & 0 & 0 & 0
-    \end{pmatrix},
-  \end{equation*}
-  and the time translation generator $H$ is:
-  \begin{equation*}
-    H =
-    \begin{pmatrix}
-      0 & 0 & 0 & 0 & 1 \\
-      0 & 0 & 0 & 0 & 0 \\
-      0 & 0 & 0 & 0 & 0 \\
-      0 & 0 & 0 & 0 & 0 \\
-      0 & 0 & 0 & 0 & 0
-    \end{pmatrix}.
-  \end{equation*}
+  If we use an augmented spacetime 5-vector in homogeneous coordinates, $(x^0, x^1, x^2, x^3, x^4) \equiv (t,x,y,z,h)$ where $h:=1$ is the homogeneous coordinate, we can define the classical symmetry algebra $\mathfrak{csg}(3)$ in terms of its generators. The generators are defined by their non-zero matrix elements $(M)_{rc}$ (row $r$, column $c$, 0-indexed) as follows:
+    \begin{itemize}
+        \item Rotation generators:
+        \begin{itemize}
+            \item $J_1$: $(J_1)_{23} = -1, (J_1)_{32} = 1$
+            \item $J_2$: $(J_2)_{13} = 1, (J_2)_{31} = -1$
+            \item $J_3$: $(J_3)_{12} = -1, (J_3)_{21} = 1$
+        \end{itemize}
+        \item Boost generators:
+        \begin{itemize}
+            \item $K_1$: $(K_1)_{01} = 1$
+            \item $K_2$: $(K_2)_{02} = 1$
+            \item $K_3$: $(K_3)_{03} = 1$
+        \end{itemize}
+        \item Spatial translation generators:
+        \begin{itemize}
+            \item $P_1$: $(P_1)_{14} = 1$
+            \item $P_2$: $(P_2)_{24} = 1$
+            \item $P_3$: $(P_3)_{34} = 1$
+        \end{itemize}
+        \item Time translation generator:
+        \begin{itemize}
+            \item $H$: $(H)_{04} = 1$
+        \end{itemize}
+    \end{itemize}
+    All other matrix elements are zero for each generator.
 \end{definition}
 
 \begin{theorem}[Commutator relations of the classical symmetry algebra $\mathfrak{csg}(3)$]\label{thm:csg3_commutation_relations}
@@ -306,7 +228,7 @@ The theory of \emph{special relativity} revolutionized our understanding of spac
 
 \begin{enumerate}
   \item \textbf{The Principle of Relativity:} The laws of physics take the same form in all inertial frames of reference. This means there is no ``absolute'' rest frame; any inertial frame is equally valid for describing physical phenomena.
-  \item \textbf{The Principle of the Constancy of the Speed of Light:} The speed of light in a vacuum, denoted $c$, has the same value for all inertial observers, regardless of the motion of the light source or the motion of the observer.
+  \item \textbf{The Principle of Invariant Light Speed:} The speed of light in a vacuum, denoted $c$, has the same value for all inertial observers, regardless of the motion of the light source or the motion of the observer.
 \end{enumerate}
 These postulates, particularly the second one, have profound consequences, leading to a departure from classical notions of space and time and requiring a new set of transformation laws between inertial frames. The invariance of the speed of light implies the invariance of the spacetime interval, which is the cornerstone for defining the geometry of flat spacetime and its symmetry group.
 
@@ -567,62 +489,22 @@ The Lie algebra associated with the Lorentz group $\mathrm{SO}^+(1,3)$ is denote
 \end{equation*}
 This condition means $X$ is "$\eta$-antisymmetric" or "$\eta$-skew-adjoint".
 
-A convenient basis for this 6-dimensional algebra is given by:
+A convenient basis for this 6-dimensional algebra is given by generators defined by their non-zero matrix elements $(M)_{rc}$ (row $r$, column $c$, 0-indexed). These generators act on coordinates $(x^0, x^1, x^2, x^3) \equiv (t,x,y,z)$, and are defined as follows:
 \begin{itemize}
-    \item Three generators of spatial rotations, $J_1, J_2, J_3$:
-    \begin{equation*} 
-      J_1 =
-      \begin{pmatrix}
-        0&0&0&0 \\
-        0&0&0&0 \\
-        0&0&0&-1 \\
-        0&0&1&0
-      \end{pmatrix}, \quad
-      J_2 =
-      \begin{pmatrix}
-        0&0&0&0 \\
-        0&0&0&1 \\
-        0&0&0&0 \\
-        0&-1&0&0
-      \end{pmatrix}, \quad
-      J_3 =
-      \begin{pmatrix}
-        0&0&0&0 \\
-        0&0&-1&0 \\
-        0&1&0&0 \\
-        0&0&0&0
-      \end{pmatrix}.
-    \end{equation*}
-    These are analogous to the $\mathfrak{so}(3)$ generators, embedded in $4 \times 4$ matrices.
-    \item Three generators of boosts, $K_1, K_2, K_3$:
-    \begin{equation*} 
-      K_1 =
-      \begin{pmatrix}
-        0&-1&0&0 \\
-        -1&0&0&0 \\
-        0&0&0&0 \\
-        0&0&0&0
-      \end{pmatrix},
-    \end{equation*}
-    \begin{equation*}
-      K_2 =
-      \begin{pmatrix}
-        0&0&-1&0 \\
-        0&0&0&0 \\
-        -1&0&0&0 \\
-        0&0&0&0
-      \end{pmatrix},
-    \end{equation*}
-    \begin{equation*}
-      K_3 =
-      \begin{pmatrix}
-        0&0&0&-1 \\
-        0&0&0&0 \\
-        0&0&0&0 \\
-        -1&0&0&0
-      \end{pmatrix}.
-    \end{equation*}
+    \item Rotation generators:
+    \begin{itemize}
+        \item $J_1$: $(J_1)_{23} = -1, (J_1)_{32} = 1$
+        \item $J_2$: $(J_2)_{13} = 1, (J_2)_{31} = -1$
+        \item $J_3$: $(J_3)_{12} = -1, (J_3)_{21} = 1$
+    \end{itemize}
+    \item Boost generators:
+    \begin{itemize}
+        \item $K_1$: $(K_1)_{01} = -1, (K_1)_{10} = -1$
+        \item $K_2$: $(K_2)_{02} = -1, (K_2)_{20} = -1$
+        \item $K_3$: $(K_3)_{03} = -1, (K_3)_{30} = -1$
+    \end{itemize}
 \end{itemize}
+All other matrix elements are zero for each generator.
 Note: These generators $X$ indeed satisfy $X^\top \eta + \eta X = 0$ with $\eta=\diag(-1,1,1,1)$. The verification for any specific generator involves direct matrix multiplication and addition, confirming the condition. (The reader is encouraged to verify this for one or two examples.)
 
 \begin{theorem}[Commutator relations of the algebra $\mathfrak{so}(1,3)$]\label{thm:so13_algebra_commutation_relations}
@@ -645,7 +527,7 @@ where $\vec{\theta} = (\theta_1, \theta_2, \theta_3)$ are rotation parameters (a
 \subsection{Kinematic Consequences}
 \label{subsec:sr_kinematics}
 The Lorentz transformations have profound implications for how different inertial observers measure time intervals and spatial lengths. These effects are not mere illusions but are fundamental to the nature of spacetime.
-% Placeholder for kinematic consequences. These can be revisited later with a more geometric approach if desired.
+% TODO: Kinematic consequences. These can be revisited later with a more geometric approach if desired.
 
 \subsection{Structure of Flat Spacetime}
 \label{subsec:sr_structure}
@@ -679,27 +561,24 @@ This section explores the full symmetry group of flat spacetime, the Poincaré g
 
 \subsection{Introduction to the Poincaré Group}
 \label{subsec:intro_poincare}
-% Key topics to cover:
-% - Extension of the Lorentz group to include spacetime translations.
-% - The 10 generators of the Poincaré group (rotations, boosts, and 4D translations).
-% (User to fill in detailed explanations)
+% TODO: Extension of the Lorentz group to include spacetime translations.
+% TODO: The 10 generators of the Poincaré group (rotations, boosts, and 4D translations).
+% TODO: User to fill in detailed explanations
 
 \subsection{The Lie Algebra of the Poincaré Group}
 \label{subsec:poincare_algebra}
-% Key topics to cover:
-% - The commutation relations among the generators ($[P^\mu, P^\nu]$, $[M^{\mu\nu}, P^\rho]$, $[M^{\mu\nu}, M^{\rho\sigma}]$).
-% (User to fill in detailed explanations and derivations)
+% TODO: The commutation relations among the generators ($[P^\mu, P^\nu]$, $[M^{\mu\nu}, P^\rho]$, $[M^{\mu\nu}, M^{\rho\sigma}]$).
+% TODO: User to fill in detailed explanations and derivations
 
 \subsection{Noether's Theorem and Conservation Laws from Poincaré Invariance}
 \label{subsec:noether_poincare}
-% Key topics to cover:
-% - Brief statement of Noether's Theorem.
-% - Connection of Poincaré symmetries to conserved quantities:
-%   - Energy (from time translation invariance).
-%   - Momentum (from spatial translation invariance).
-%   - Angular Momentum (from rotational invariance).
-%   - Conservation related to boosts (motion of center of energy).
-% (User to fill in detailed explanations)
+% TODO: Brief statement of Noether's Theorem.
+% TODO: Connection of Poincaré symmetries to conserved quantities:
+% TODO:   - Energy (from time translation invariance).
+% TODO:   - Momentum (from spatial translation invariance).
+% TODO:   - Angular Momentum (from rotational invariance).
+% TODO:   - Conservation related to boosts (motion of center of energy).
+% TODO: User to fill in detailed explanations
 
 \subsection{Casimir Invariants: Defining Intrinsic Particle Properties}
 \label{subsec:casimir_invariants}
@@ -707,32 +586,30 @@ This subsection discusses operators that commute with all generators of the Poin
 
 \subsubsection{What are Casimir Invariants?}
 \label{subsubsec:what_are_casimirs}
-% Key topics to cover:
-% - General definition of a Casimir invariant (or Casimir operator) for a Lie algebra.
-% - Their property of having constant eigenvalues on irreducible representations.
-% (User to fill in detailed explanations)
+% TODO: General definition of a Casimir invariant (or Casimir operator) for a Lie algebra.
+% TODO: Their property of having constant eigenvalues on irreducible representations.
+% TODO: User to fill in detailed explanations
 
 \subsubsection{The $P^2$ Invariant: Mass}
 \label{subsubsec:p_squared_invariant}
 The first key Casimir invariant is $P^2 = P_\mu P^\mu$.
 
 \paragraph{Proof that $P^2$ is a Casimir Invariant:}
-% This involves showing that $[P^2, P^\sigma] = 0$ and $[P^2, M^{\rho\sigma}] = 0$.
+% TODO: This involves showing that $[P^2, P^\sigma] = 0$ and $[P^2, M^{\rho\sigma}] = 0$.
 \textit{[Proof to be filled in by user based on our previous discussion.]}
 
 \paragraph{Physical Significance of $P^2$:}
 The eigenvalue of $P^2$ is $m^2$ (or $-m^2 c^2$ depending on metric and $c$ conventions), where $m$ is the invariant rest mass of the particle. This demonstrates that mass is a fundamental Poincaré-invariant characteristic.
-% (User to elaborate)
+% TODO: User to elaborate
 
 \subsubsection{The $W^2$ Invariant: Spin}
 \label{subsubsec:w_squared_invariant}
 The second key Casimir invariant is $W^2 = W_\mu W^\mu$, where $W_\mu = \frac{1}{2} \epsilon_{\mu\nu\rho\sigma} M^{\nu\rho} P^\sigma$ is the Pauli-Lubanski pseudovector.
-% Key topics to cover:
-% - Conceptual introduction to $W_\mu$ and $W^2$.
-% - Statement that $W^2$ is a Casimir invariant (proof can be noted as more complex and omitted or referenced).
-% - Its eigenvalue for massive particles: $-m^2 s(s+1)c^2$ (or similar depending on conventions), where $s$ is the spin.
-% - Its relation to helicity for massless particles.
-% (User to fill in detailed explanations)
+% TODO: Conceptual introduction to $W_\mu$ and $W^2$.
+% TODO: Statement that $W^2$ is a Casimir invariant (proof can be noted as more complex and omitted or referenced).
+% TODO: Its eigenvalue for massive particles: $-m^2 s(s+1)c^2$ (or similar depending on conventions), where $s$ is the spin.
+% TODO: Its relation to helicity for massless particles.
+% TODO: User to fill in detailed explanations
 
 \subsection{The Role of Schur's Lemma: Why Casimir Eigenvalues Label Particles}
 \label{subsec:schurs_lemma_role}
@@ -740,10 +617,10 @@ This subsection explains the mathematical theorem that underpins why Casimir inv
 
 \subsubsection{Statement of Schur's Lemma}
 \label{subsubsec:schurs_lemma_statement}
-% State the relevant version of Schur's Lemma:
-% For a complex, finite-dimensional irreducible representation of a group, any operator that commutes
-% with all representation operators must be a scalar multiple of the identity.
-% (User to provide a precise statement)
+% TODO: State the relevant version of Schur's Lemma:
+% TODO: For a complex, finite-dimensional irreducible representation of a group, any operator that commutes
+% TODO: with all representation operators must be a scalar multiple of the identity.
+% TODO: User to provide a precise statement
 
 \subsubsection{Proof of Schur's Lemma}
 \label{subsubsec:schurs_lemma_proof}
@@ -752,95 +629,94 @@ This subsection explains the mathematical theorem that underpins why Casimir inv
 \subsubsection{Implication for Casimir Invariants}
 \label{subsubsec:schur_implication_casimir}
 Since Casimir invariants commute with all generators (and thus all elements of a representation), Schur's Lemma implies they act as a constant scalar (their eigenvalue) on any irreducible representation.
-% (User to elaborate on this connection)
+% TODO: User to elaborate on this connection
 
 \subsection{Consequence: Classification of Particles in Special Relativity}
 \label{subsec:particle_classification_sr}
-% Key topics to cover:
-% - How the eigenvalues of $P^2$ (mass) and $W^2$ (spin) provide a fundamental classification scheme for elementary particles in relativistic quantum mechanics.
-% - Brief conceptual link to Wigner's classification of the irreducible representations of the Poincaré group.
-% (User to fill in detailed explanations)
+% TODO: How the eigenvalues of $P^2$ (mass) and $W^2$ (spin) provide a fundamental classification scheme for elementary particles in relativistic quantum mechanics.
+% TODO: Brief conceptual link to Wigner's classification of the irreducible representations of the Poincaré group.
+% TODO: User to fill in detailed explanations
 
 
 \section{Transition to Curved Spacetime (General Relativity)}
 \label{sec:transition_gr}
 The theory of special relativity, while revolutionary, is fundamentally a theory of flat spacetime. It does not incorporate gravity. Newtonian gravity, on the other hand, describes gravity as a force acting instantaneously at a distance, which is incompatible with the finite speed of light posited in special relativity. General relativity emerges from the need to reconcile these ideas.
-% User can add: Limitations of SR and Newtonian Gravity, The Equivalence Principle, Gravity as Spacetime Curvature
+% TODO: Limitations of SR and Newtonian Gravity, The Equivalence Principle, Gravity as Spacetime Curvature
 
 \subsection{The Principle of Equivalence}
-% Placeholder
+% TODO: Placeholder
 
 \subsection{Gravity as Spacetime Curvature}
-% Placeholder
+% TODO: Placeholder
 
 \section{The Mathematical Language of Curved Spacetime (Differential Geometry)}
 \label{sec:math_gr}
 To describe gravity as the curvature of spacetime, we need the tools of differential geometry. Spacetime is no longer assumed to be flat but is instead a more general mathematical object called a manifold, equipped with a metric tensor that can vary from point to point.
-% User can add subsections:
+% TODO: User can add subsections:
 \subsection{Manifolds and Charts}
-% Placeholder
+% TODO: Placeholder
 \subsection{Tangent Spaces, Vectors, and Tensors in GR}
-% Placeholder
+% TODO: Placeholder
 \subsection{The Metric Tensor $g_{\mu\nu}$}
-% Placeholder
+% TODO: Placeholder
 \subsection{Covariant Derivative and Parallel Transport}
-% Placeholder
+% TODO: Placeholder
 \subsection{Geodesics: Paths of Freely Falling Particles}
-% Placeholder
+% TODO: Placeholder
 \subsection{Curvature: Riemann Tensor, Ricci Tensor, Ricci Scalar}
-% Placeholder
+% TODO: Placeholder
 
 \section{The Field Equations of Gravity: How Matter and Energy Dictate Spacetime Curvature}
 \label{sec:efe}
-% User can add content here
+% TODO: User can add content here
 \subsection{The Stress-Energy Tensor $T_{\mu\nu}$}
-% Placeholder
+% TODO: Placeholder
 \subsection{The Einstein Tensor $G_{\mu\nu}$}
-% Placeholder
+% TODO: Placeholder
 \subsection{The Equations: $G_{\mu\nu} = \frac{8\pi G}{c^4} T_{\mu\nu}$}
-% Placeholder
+% TODO: Placeholder
 
 \section{Gravity of a Non-Rotating, Uncharged Spherical Mass (and its Observational Tests)}
 \label{sec:schwarzschild_tests}
 One of the first and most important solutions to Einstein's field equations describes the spacetime outside a static, spherically symmetric, uncharged massive object. This is known as the Schwarzschild solution.
 
 \subsection{The Metric for a Spherical Mass (Schwarzschild Metric)}
-% Placeholder for derivation/presentation
+% TODO: Placeholder for derivation/presentation
 
 \subsection{Properties: Event Horizon, Gravitational Singularity}
-% Placeholder
+% TODO: Placeholder
 
 \subsection{Application 1: Perihelion Precession of Orbits (e.g., Mercury)}
 \label{subsec:mercury_precession}
 The perihelion precession of Mercury’s orbit is a seminal observational phenomenon that challenged Newtonian gravity and provided empirical support for the relativistic description of gravitation. Classical Newtonian mechanics predicts orbital motion based on an inverse-square central force, resulting in closed elliptical orbits. However, observations show an additional precession unaccounted for by classical perturbations from other planets. General relativity explains this anomaly through the curvature of spacetime caused by the Sun’s mass. By modeling Mercury’s trajectory as a geodesic in the Schwarzschild metric, one derives corrections to the Newtonian orbital elements, resulting in a predicted advance of the perihelion that matches observations to high precision. This section presents the derivation of the relativistic corrections to Mercury’s orbit, starting from the Schwarzschild solution to Einstein’s field equations and applying perturbation techniques to the geodesic equations of motion.
 
 \subsection{Application 2: Relativistic Effects on Clocks and Timekeeping (e.g., for Satellites/GPS)}
-% Placeholder for Gravitational Time Dilation, Combined Effects for GPS
+% TODO: Placeholder for Gravitational Time Dilation, Combined Effects for GPS
 
 \subsection{Application 3: The Bending of Light and Gravitational Lensing}
-% Placeholder for Deflection of Light
+% TODO: Placeholder for Deflection of Light
 \subsubsection{The "Einstein Cross" and other lensing phenomena}
-% Placeholder for how multiple images form
+% TODO: Placeholder for how multiple images form
 
 \section{Beyond Simple Cases: Rotating and Charged Massive Objects}
 \label{sec:kerr_etc}
 
 \subsection{Need for More General Solutions}
-% Placeholder
+% TODO: Placeholder
 
 \subsection{Rotating Massive Objects (e.g., Kerr solution)}
-% Placeholder for Frame-Dragging
+% TODO: Placeholder for Frame-Dragging
 \subsubsection{The Ergosphere}
-% Placeholder for definition, boundaries, Penrose process concept
+% TODO: Placeholder for definition, boundaries, Penrose process concept
 
 \subsection{Charged, Non-Rotating Massive Objects (e.g., Reissner-Nordström solution)}
-% Placeholder
+% TODO: Placeholder
 
 \subsection{Charged AND Rotating Massive Objects (e.g., Kerr-Newman solution)}
-% Placeholder
+% TODO: Placeholder
 
 \section{Further Striking Phenomena and Future Directions}
 \label{sec:future_phenomena}
-% Placeholder for Gravitational Waves, Black Hole Thermodynamics, Wormholes, Cosmology, Recap.
+% TODO: Placeholder for Gravitational Waves, Black Hole Thermodynamics, Wormholes, Cosmology, Recap.
 
 \end{document}
