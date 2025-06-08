@@ -4,12 +4,14 @@
 \usepackage{amsmath}
 \usepackage{amsfonts}
 \usepackage{amsthm}
+\usepackage{tensor}
 
 % Declare Theorem Environments
 \newtheorem{theorem}{Theorem}[section]
 \newtheorem{lemma}[theorem]{Lemma}
 \theoremstyle{definition}
 \newtheorem{definition}[theorem]{Definition}
+\newtheorem{definition*}{Definition}
 \theoremstyle{remark}
 \newtheorem*{remark}{Remark}
 \newtheorem*{example}{Example}
@@ -229,7 +231,7 @@ This lays the groundwork for the more complex groups appearing in relativity.
 \end{definition}
 
 \begin{theorem}[Commutator relations of the classical symmetry algebra $\mathfrak{csg}(3)$]\label{thm:csg3_commutation_relations}
-  The generators \(J_i\) (rotations), \(K_i\) (boosts), \(P_i\) (spatial translations), and \(H\) (time translation) satisfy the following commutation relations:
+  The generators $J_i$ (rotations), $K_i$ (boosts), $P_i$ (spatial translations), and $H$ (time translation) satisfy the following commutation relations:
   \begin{gather*}
     [J_i, J_j] = \epsilon_{ijk} J_k, \quad
     [J_i, K_j] = \epsilon_{ijk} K_k, \quad
@@ -270,19 +272,25 @@ The invariance of the speed of light implies the invariance of the spacetime int
 
 \subsection{Symmetries of Flat Spacetime}
 \label{subsec:so13_group}
-\begin{definition}[Proper orthochronous spacetime symmetry group]
-  Let $\eta$ be the flat spacetime metric tensor:
+\begin{definition}[Flat spacetime metric tensor]
+  Let $\eta$ be the \emph{flat spacetime metric tensor}:
   \begin{equation*}
     \eta = \diag(-1, +1, +1, +1).
   \end{equation*}
-  The group of real $4 \times 4$ matrices $\Lambda$ preserving this bilinear form satisfies
+\end{definition}
+
+\begin{definition}[Orthogonal symmetry group]\label{def:orthogonal_symmetry_group}
+  The group of linear operators that preserve the flat spacetime metric tensor is an \emph{orthogonal group}
   \begin{equation*}
-    \Lambda^\top \eta \Lambda = \eta.
+    \mathrm{O}(1,3) := \left\{\Lambda\in\mathbb{R}^{4\times4}: \Lambda^\alpha{}_\mu\eta_{\mu\nu}\Lambda^\nu{}_\beta=\eta_{\alpha\beta}\right\}
   \end{equation*}
-  The subgroup of these matrices with determinant $+1$ and with $\Lambda^0{}_0 \geq 1$ (preserving time orientation) is called the \emph{proper orthochronous spacetime symmetry group}, denoted
+  The subgroup of these matrices that prevent reflections is the \emph{proper} orthogonal group
   \begin{equation*}
-    \mathrm{SO}^+(1,3) = \left\{ \Lambda \in \mathrm{GL}(4,\mathbb{R}) \middle|
-    \Lambda^\top \eta \Lambda = \eta,\ \det \Lambda = 1,\ \Lambda^0{}_0 \geq 1 \right\}.
+    \mathrm{SO}(1,3) := \left\{\Lambda\in\mathrm{O}(1,3): \det\Lambda = +1\right\}
+  \end{equation*}
+  The subgroup of this subgroup with that prevents time reversal is called the \emph{proper orthochronous orthogonal group}
+  \begin{equation*}
+    \mathrm{SO}^+(1,3) = \left\{ \Lambda \in \mathrm{SO}(1,3) : \Lambda^0{}_0 \geq 1 \right\}.
   \end{equation*}
 \end{definition}
 
@@ -290,7 +298,7 @@ The invariance of the speed of light implies the invariance of the spacetime int
   Rotations in $\mathrm{SO}(3)$ are a subgroup of $\mathrm{SO}^+(1,3)$.
   For $R_3\in\mathrm{SO}(3)$, the $4 \times 4$ matrix
   \begin{equation*}
-    \Lambda_R =
+    \Lambda =
     \begin{pmatrix}
       1 & 0 \\
       0 & R_3
@@ -298,11 +306,11 @@ The invariance of the speed of light implies the invariance of the spacetime int
   \end{equation*}
 \end{theorem}
 \begin{proof}
-  We check the conditions for $\Lambda_R \in \mathrm{SO}^+(1,3)$:
+  We check the conditions for $\Lambda \in \mathrm{SO}^+(1,3)$:
   \begin{enumerate}
-      \item $\Lambda_R^\top \eta \Lambda_R = \eta$:
+      \item $\Lambda^\top \eta \Lambda = \eta$:
         \begin{align*}
-          \Lambda_R^\top\eta \Lambda_R &=
+          \Lambda^\top\eta \Lambda &=
           \begin{pmatrix}
             1 & 0 \\
             0 & R_3
@@ -346,26 +354,26 @@ The invariance of the speed of light implies the invariance of the spacetime int
       Since $R_3 \in \mathrm{SO}(3)$, we have $R_3^\top R_3 = I_3$.
       Thus,
       \begin{equation*}
-        \Lambda_R^\top\eta \Lambda_R =
+        \Lambda^\top\eta \Lambda =
         \begin{pmatrix}
           -1 & 0 \\
           0 & I_3
         \end{pmatrix}
         = \eta.
       \end{equation*}
-      \item $\det(\Lambda_R) = 1$:
+      \item $\det(\Lambda) = 1$:
       \begin{equation*}
-        \det(\Lambda_R) = \det(1) \cdot \det(R_3) = 1 \cdot 1 = 1,
+        \det(\Lambda) = \det(1) \cdot \det(R_3) = 1 \cdot 1 = 1,
       \end{equation*}
       since $\det(R_3)=1$ for $R_3 \in \mathrm{SO}(3)$.
-      \item $(\Lambda_R)^0{}_0 \geq 1$:
-      The $(0,0)$ component of $\Lambda_R$ is $(\Lambda_R)^0{}_0 = 1$, which satisfies the requirement.
+      \item $\Lambda^0{}_0 \geq 1$:
+      The $(0,0)$ component of $\Lambda$ is $\Lambda_R^0{}_0 = 1$, which satisfies the requirement.
   \end{enumerate}
-  All conditions are met, so $\Lambda_R \in \mathrm{SO}^+(1,3)$.
+  All conditions are met, so $\Lambda \in \mathrm{SO}^+(1,3)$.
 \end{proof}
 
 \begin{lemma}\label{lem:boost_x_direction_so11}
-  For a boost in the $x$-direction that preserves the interval defined by the flat metric, the transformation matrix $\Lambda\in\mathrm{SO}(1,1)$ (a subgroup of $\mathrm{SO}^+(1,3)$ acting on $t,x$) can be written as
+  For a boost in the $x$-direction that preserves the interval defined by the flat metric, the transformation matrix $\Lambda\in\mathrm{SO}(1,1)$ can be written as
   \begin{equation*}
     \Lambda =
     \begin{pmatrix}
@@ -373,7 +381,7 @@ The invariance of the speed of light implies the invariance of the spacetime int
       -\gamma v & \gamma
     \end{pmatrix},
   \end{equation*}
-  where $\gamma = \frac{1}{\sqrt{1 - v^2}}$ and the \emph{speed} $v \in (-1,1)$ is expressed in natural units.
+  where $\gamma := \frac{1}{\sqrt{1 - v^2}}$ and the \emph{speed} $v \in (-1,1)$ is expressed in natural units.
   Alternatively, in terms of the \emph{rapidity} parameter $\phi := \arctanh v$, the matrix becomes
   \begin{equation*}
     \Lambda =
@@ -445,7 +453,7 @@ The invariance of the speed of light implies the invariance of the spacetime int
   \end{align*}
   From $-A^2 + C^2 = -1$, we rearrange to $A^2 = 1 + C^2$.
   Since $C^2 \geq 0$, this implies $A^2 \geq 1$, so $|A| \geq 1$.
-  To ensure that the transformation does not reverse the direction of time (i.e., it is orthochronous), we impose the physical condition $A > 0$.
+  To ensure that the transformation does not reverse the direction of time, we impose the physical condition $A > 0$.
   Combined with $|A| \geq 1$, this leads to the requirement $A \geq 1$.
   Similarly, from $-B^2 + D^2 = 1$, we rearrange to $D^2 = 1 + B^2$.
   Since $B^2 \geq 0$, this implies $D^2 \geq 1$, so $|D| \geq 1$.
@@ -536,20 +544,20 @@ The invariance of the speed of light implies the invariance of the spacetime int
       -\sinh \phi \hat{n} & I_3 + (\cosh \phi - 1) \hat{n} \hat{n}^\top
     \end{pmatrix}.
   \end{equation*}
-  % TODO: Proof for general boost (Theorem~\ref{thm:general_boost_so13}) to be detailed or reference provided.
 \end{theorem}
+% TODO: Proof for general boost (Theorem~\ref{thm:general_boost_so13}) to be detailed or reference provided.
 
 \subsection{The Algebra of Spacetime Symmetries ($\mathfrak{so}(1,3)$)}
 \label{subsec:so13_algebra}
 
 \begin{definition}
-  The algebra associated with the group $\mathrm{SO}^+(1,3)$ is denoted $\mathfrak{so}(1,3)$.
-  It consists of all \(4 \times 4\) real matrices \(X\) such that a curve $\Lambda(s) = \exp(sX)$ is in $\mathrm{SO}^+(1,3)$ for small $s$.
+  The algebra $\mathfrak{so}(1,3)$ is associated with the group $\mathrm{SO}^+(1,3)$.
+  It consists of all $4 \times 4$ real matrices $X$ such that a curve $\Lambda(s) = \exp(sX)$ is in $\mathrm{SO}^+(1,3)$ for small $s$.
   Differentiating $\Lambda(s)^\top \eta \Lambda(s) = \eta$ at $s=0$ (where $\Lambda(0)=I$) yields the condition for elements $X \in \mathfrak{so}(1,3)$:
   \begin{equation*}
     X^\top \eta + \eta X = 0.
   \end{equation*}
-  This condition means $X$ is "$\eta$-antisymmetric" or "$\eta$-skew-adjoint".
+  This condition means $X$ is ``$\eta$-antisymmetric'' or ``$\eta$-skew-adjoint''.
   A convenient basis for this 6-dimensional algebra, acting on coordinates
   \begin{equation*}
     (x^0, x^1, x^2, x^3) \equiv (t,x,y,z),
@@ -606,32 +614,43 @@ These effects are not mere illusions but are fundamental to the nature of spacet
 
 \subsection{Structure of Flat Spacetime}
 \label{subsec:sr_structure}
-The theory of special relativity operates in a four-dimensional \emph{flat spacetime}.
-Its geometric properties are defined by a metric tensor, $\eta_{\mu\nu}$, which is used to calculate spacetime intervals.
-\begin{equation*}
-  \eta_{\mu\nu} = \diag(-1,1,1,1).
-\end{equation*}
-The \emph{invariant spacetime interval}, $s^2$ (or often $ds^2$ for infinitesimal separations), between two events separated by $dx^\mu = (dx^0, dx^1, dx^2, dx^3)$ is given by:
-\begin{equation*}
-  ds^2 = \eta_{\mu\nu} dx^\mu dx^\nu = -(dx^0)^2 + (dx^1)^2 + (dx^2)^2 + (dx^3)^2.
-\end{equation*}
-This interval is invariant under Lorentz transformations (rotations and boosts).
-The nature of the interval between two events determines their causal relationship:
-\begin{itemize}
-    \item \textbf{Timelike interval}: $ds^2 < 0$.
-    It is possible for a massive particle to travel between these events; one event can causally affect the other.
-    The proper time $d\tau$ is defined by $d\tau^2 = -ds^2/c^2$ (or $d\tau^2 = -ds^2$ if $c=1$).
-    \item \textbf{Spacelike interval}: $ds^2 > 0$.
-    It is not possible for a massive particle to travel between these events; they are causally disconnected in the sense that neither can lie in the past or future light cone of the other.
-    The proper distance $d\sigma$ is $d\sigma^2 = ds^2$.
-    \item \textbf{Null (or lightlike) interval}: $ds^2 = 0$.
-    Only massless particles (like photons) can travel along such an interval; these define the light cones.
-\end{itemize}
+
+\begin{definition*}
+  Recall in a previous section that we defined the \emph{flat spacetime metric tensor}, $\eta$:
+  \begin{equation*}
+    \eta = \diag(-1, +1, +1, +1).
+  \end{equation*}
+\end{definition*}
+
+\begin{definition}[Inhomogeneous Special Orthogonal Group]
+  The \emph{inhomogeneous special orthogonal group}, $\mathrm{ISO}(1,3)$, is the group of transforms that preserves the squared spacetime interval
+  \begin{equation*}
+    \mathrm{ISO}(1, 3)=\left\{T:\mathbb{R}^{1,3}\to\mathbb{R}^{1,3}\mid \left(T(x)-T(y)\right)^2
+=(x-y)^2\right\}
+  \end{equation*}
+  where the squared notation is defined for $V\in\mathbb{R}^{1,3}$
+  \begin{equation*}
+    V^2:=\eta_{\mu\nu}V^\mu V^\nu
+  \end{equation*}
+\end{definition}
+
+\begin{theorem}
+  Let $\Lambda$ be an element of the proper orthochronus orthogonal group, $\mathrm{SO}^+(1,3)$ and let $a\in\mathbb{R}^{1,3}$ be any constant spacetime translation vector. The affine transformation $T:\mathbb{R}^{1,3}\to\mathbb{R}^{1,3}$ defined by
+  \begin{equation*}
+    T(x) = \Lambda x + a
+  \end{equation*}
+  is an element of $ISO(1,3)$.
+\end{theorem}
+% TODO Proof goes here
+
+\begin{theorem}
+  All members $T\in\mathrm{ISO}(1,3)$ can be written as $T=\Lambda x + a$ where $\Lambda\in\mathrm{SO}(1, 3)$ and $a\in\mathbb{R}^4$.
+\end{theorem}
+% TODO Proof goes here
 
 At every point in this spacetime, a \emph{tangent space} can be defined.
 This is a vector space whose elements are 4-vectors, such as 4-displacement $dx^\mu$, 4-velocity $v^\mu$, 4-momentum $p^\mu$, etc.
 These vectors represent physical quantities or directions in spacetime.
-The metric tensor $\eta_{\mu\nu}$ defines an inner product on this tangent space: for two 4-vectors $A^\mu$ and $B^\nu$, their inner product is $\langle A, B \rangle = \eta_{\mu\nu} A^\mu B^\nu = A_\mu B^\mu = A^\mu B_\mu$.
 
 A \emph{4-velocity} $v^\mu = \frac{dx^\mu}{d\tau}$ describes the rate of change of spacetime coordinates $x^\mu$ with respect to the proper time $\tau$ along a particle's worldline.
 Proper time is the time measured by a clock moving with the particle.
@@ -797,7 +816,7 @@ This section presents the derivation of the relativistic corrections to Mercuryâ
 
 \subsection{Application 3: The Bending of Light and Gravitational Lensing}
 % TODO: Placeholder for Deflection of Light
-\subsubsection{The "Einstein Cross" and other lensing phenomena}
+\subsubsection{The ``Einstein Cross'' and other lensing phenomena}
 % TODO: Placeholder for how multiple images form
 
 \section{Beyond Simple Cases: Rotating and Charged Massive Objects}
@@ -820,5 +839,128 @@ This section presents the derivation of the relativistic corrections to Mercuryâ
 \section{Further Striking Phenomena and Future Directions}
 \label{sec:future_phenomena}
 % TODO: Placeholder for Gravitational Waves, Black Hole Thermodynamics, Wormholes, Cosmology, Recap.
+
+\appendix
+\section{Tensor Algebra}
+This appendix summarizes the algebraic properties of basic tensor operations. It assumes all indices are appropriately matched (contravariant vs. covariant).
+
+\subsection*{Notation}
+Let $U$, $V$, $W$ be tensors of the same type, and $a$, $b$ scalars. Summation is implied over any index that appears once in a raised (contravariant) position and once in a lowered (covariant) position. A summation is \emph{well-defined} if it meets the following criteria:
+
+\begin{enumerate}
+  \item \emph{Appears exactly once up and once down (paired indices)}\\
+  Example: 
+  \begin{equation*}
+  \tensor{A}{^\mu} \tensor{B}{_\mu} \quad \text{(valid)} \qquad 
+  \tensor{A}{^\mu} \tensor{B}{^\mu} \quad \text{(invalid: both raised)}
+  \end{equation*}
+
+  \item \emph{Variance is compatible (contravariant/covariant pairing)}\\
+  Example:
+  \begin{equation*}
+  \tensor{g}{_{\mu\nu}} \tensor{A}{^\nu} \quad \text{(valid: lowers index)} \qquad 
+  \tensor{g}{_{\mu\nu}} \tensor{A}{_\nu} \quad \text{(invalid: both covariant)}
+  \end{equation*}
+
+  \item \emph{Summation index appears only once per term (no double use)}\\
+  Example:
+  \begin{equation*}
+  \tensor{A}{^\mu} \tensor{B}{_\mu} \tensor{C}{^\nu} \quad \text{(valid)} \qquad 
+  \tensor{A}{^\mu} \tensor{B}{_\mu} \tensor{C}{_\mu} \quad \text{(invalid: reused $\mu$)}
+  \end{equation*}
+
+  \item \emph{Free indices appear only once per term and match across the equation}\\
+  Example:
+  \begin{equation*}
+  \tensor{A}{^\mu_\nu} \tensor{B}{^\nu} = \tensor{C}{^\mu} \quad \text{(valid)} \qquad 
+  \tensor{A}{^\mu_\nu} \tensor{B}{^\nu} = \tensor{C}{^\rho} \quad \text{(invalid: mismatch)}
+  \end{equation*}
+
+  \item \emph{All summed tensors belong to compatible spaces}\\
+  Example:
+  \begin{gather*}
+  \tensor{v}{^\mu} \tensor{w}{_\mu} \quad \text{(valid: dual pairing)} \\ 
+  \tensor{F}{^\mu_\nu} \tensor{A}{^\nu} \quad \text{(valid: matrix acting on a vector)} \\
+  \tensor{g}{^\mu^\nu} \tensor{F}{^\rho_\nu} \quad \text{(questionable if metric acts on a purely contravariant index)}
+  \end{gather*}
+\end{enumerate}
+
+\subsection*{Addition}
+\begin{align*}
+U + V &= W
+\end{align*}
+\emph{Properties:}
+\begin{itemize}
+  \item \emph{Associative}: $(U + V) + W = U + (V + W)$
+  \item \emph{Commutative}: $U + V = V + U$
+  \item \emph{Distributive over scalar multiplication}: $a(U + V) = aU + aV$
+  \item \emph{Identity}: $\exists\ 0$ such that $U + 0 = U$
+  \item \emph{Inverse}: $\exists\ -U$ such that $U + (-U) = 0$
+\end{itemize}
+
+\subsection*{Scalar Multiplication}
+\begin{align*}
+(aU)^\mu &= a U^\mu
+\end{align*}
+\emph{Properties:}
+\begin{itemize}
+  \item \emph{Associative}: $a(bU) = (ab)U$
+  \item \emph{Distributes over tensor addition}: $a(U + V) = aU + aV$
+  \item \emph{Distributes over scalar addition}: $(a + b)U = aU + bU$
+\end{itemize}
+
+\subsection*{Tensor Product}
+\begin{align*}
+(T \otimes S)^{\mu\nu} &= T^\mu S^\nu
+\end{align*}
+\emph{Properties:}
+\begin{itemize}
+  \item \emph{Associative}: $(T \otimes S) \otimes R = T \otimes (S \otimes R)$
+  \item \emph{Not commutative}: Generally $T \otimes S \neq S \otimes T$
+  \item \emph{Distributes over addition}: $T \otimes (S + R) = T \otimes S + T \otimes R$
+  \item \emph{Compatible with scalar multiplication}: $a(T \otimes S) = (aT) \otimes S = T \otimes (aS)$
+\end{itemize}
+
+\subsection*{Contraction}
+\begin{align*}
+\tensor{U}{^\mu} \tensor{V}{_\mu} &= \text{scalar (or lower-rank tensor)}
+\end{align*}
+\emph{Properties:}
+\begin{itemize}
+%  \item \emph{Associative under full contraction}: $(U^\mu V_\mu) W = U^\mu (V_\mu W)$
+  \item \emph{Generally commutative}: $\tensor{U}{^\mu} \tensor{V}{_\mu} = \tensor{V}{_\mu} \tensor{U}{^\mu}$ as long as the underlying tensor algebra is over a \emph{commutative ring}
+  \item \emph{Distributive}: $(U + V)^\mu W_\mu = U^\mu W_\mu + V^\mu W_\mu$
+\end{itemize}
+
+\subsection*{Metric Tensor}
+\begin{align*}
+\tensor{U}{_\mu} &= \tensor{g}{_{\mu\nu}} \tensor{U}{^\nu}, \quad \tensor{U}{^\mu} = \tensor{g}{^{\mu\nu}} \tensor{U}{_\nu}
+\end{align*}
+\emph{Properties:}
+\begin{itemize}
+  \item \emph{Linear}: $g_{\mu\nu}(aU^\nu + bV^\nu) = aU_\mu + bV_\mu$
+  \item \emph{Inverse operation}: $g^{\mu\nu}g_{\nu\rho} = \delta^\mu_\rho$
+\end{itemize}
+
+\subsection*{Substitution Tensor}
+\begin{align*}
+\tensor{\delta}{^\mu_\nu} V^\nu &= V^\mu
+\end{align*}
+\emph{Properties:}
+\begin{itemize}
+  \item \emph{Acts as identity under contraction}
+  \item \emph{Compatible with index placement}
+\end{itemize}
+
+\subsection*{Volume Tensor}
+The \emph{volume tensor} is denoted by $\tensor{\epsilon}{^{\mu\nu\rho\ldots}}$ or $\tensor{\epsilon}{_{\mu\nu\rho\ldots}}$. It is defined by the sign of the permutation of its indices:
+\begin{equation*}
+\tensor{\epsilon}{^{\mu_1\mu_2\ldots\mu_n}} = 
+\begin{cases}
++1 & \text{even permutation of } (0,1,2,\ldots,n{-}1) \\
+-1 & \text{odd permutation} \\
+\ \ 0 & \text{any repeated index}
+\end{cases}
+\end{equation*}
 
 \end{document}
