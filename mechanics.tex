@@ -840,4 +840,127 @@ This section presents the derivation of the relativistic corrections to Mercuryâ
 \label{sec:future_phenomena}
 % TODO: Placeholder for Gravitational Waves, Black Hole Thermodynamics, Wormholes, Cosmology, Recap.
 
+\appendix
+\section{Tensor Algebra}
+This appendix summarizes the algebraic properties of basic tensor operations. It assumes all indices are appropriately matched (contravariant vs. covariant).
+
+\subsection*{Notation}
+Let $U$, $V$, $W$ be tensors of the same type, and $a$, $b$ scalars. Summation is implied over any index that appears once in a raised (contravariant) position and once in a lowered (covariant) position. A summation is \emph{well-defined} if it meets the following criteria:
+
+\begin{enumerate}
+  \item \emph{Appears exactly once up and once down (paired indices)}\\
+  Example: 
+  \begin{equation*}
+  \tensor{A}{^\mu} \tensor{B}{_\mu} \quad \text{(valid)} \qquad 
+  \tensor{A}{^\mu} \tensor{B}{^\mu} \quad \text{(invalid: both raised)}
+  \end{equation*}
+
+  \item \emph{Variance is compatible (contravariant/covariant pairing)}\\
+  Example:
+  \begin{equation*}
+  \tensor{g}{_{\mu\nu}} \tensor{A}{^\nu} \quad \text{(valid: lowers index)} \qquad 
+  \tensor{g}{_{\mu\nu}} \tensor{A}{_\nu} \quad \text{(invalid: both covariant)}
+  \end{equation*}
+
+  \item \emph{Summation index appears only once per term (no double use)}\\
+  Example:
+  \begin{equation*}
+  \tensor{A}{^\mu} \tensor{B}{_\mu} \tensor{C}{^\nu} \quad \text{(valid)} \qquad 
+  \tensor{A}{^\mu} \tensor{B}{_\mu} \tensor{C}{_\mu} \quad \text{(invalid: reused $\mu$)}
+  \end{equation*}
+
+  \item \emph{Free indices appear only once per term and match across the equation}\\
+  Example:
+  \begin{equation*}
+  \tensor{A}{^\mu_\nu} \tensor{B}{^\nu} = \tensor{C}{^\mu} \quad \text{(valid)} \qquad 
+  \tensor{A}{^\mu_\nu} \tensor{B}{^\nu} = \tensor{C}{^\rho} \quad \text{(invalid: mismatch)}
+  \end{equation*}
+
+  \item \emph{All summed tensors belong to compatible spaces}\\
+  Example:
+  \begin{gather*}
+  \tensor{v}{^\mu} \tensor{w}{_\mu} \quad \text{(valid: dual pairing)} \\ 
+  \tensor{F}{^\mu_\nu} \tensor{A}{^\nu} \quad \text{(valid: matrix acting on a vector)} \\
+  \tensor{g}{^\mu^\nu} \tensor{F}{^\rho_\nu} \quad \text{(questionable if metric acts on a purely contravariant index)}
+  \end{gather*}
+\end{enumerate}
+
+\subsection*{Addition}
+\begin{align*}
+U + V &= W
+\end{align*}
+\emph{Properties:}
+\begin{itemize}
+  \item \emph{Associative}: $(U + V) + W = U + (V + W)$
+  \item \emph{Commutative}: $U + V = V + U$
+  \item \emph{Distributive over scalar multiplication}: $a(U + V) = aU + aV$
+  \item \emph{Identity}: $\exists\ 0$ such that $U + 0 = U$
+  \item \emph{Inverse}: $\exists\ -U$ such that $U + (-U) = 0$
+\end{itemize}
+
+\subsection*{Scalar Multiplication}
+\begin{align*}
+(aU)^\mu &= a U^\mu
+\end{align*}
+\emph{Properties:}
+\begin{itemize}
+  \item \emph{Associative}: $a(bU) = (ab)U$
+  \item \emph{Distributes over tensor addition}: $a(U + V) = aU + aV$
+  \item \emph{Distributes over scalar addition}: $(a + b)U = aU + bU$
+\end{itemize}
+
+\subsection*{Tensor Product}
+\begin{align*}
+(T \otimes S)^{\mu\nu} &= T^\mu S^\nu
+\end{align*}
+\emph{Properties:}
+\begin{itemize}
+  \item \emph{Associative}: $(T \otimes S) \otimes R = T \otimes (S \otimes R)$
+  \item \emph{Not commutative}: Generally $T \otimes S \neq S \otimes T$
+  \item \emph{Distributes over addition}: $T \otimes (S + R) = T \otimes S + T \otimes R$
+  \item \emph{Compatible with scalar multiplication}: $a(T \otimes S) = (aT) \otimes S = T \otimes (aS)$
+\end{itemize}
+
+\subsection*{Contraction}
+\begin{align*}
+\tensor{U}{^\mu} \tensor{V}{_\mu} &= \text{scalar (or lower-rank tensor)}
+\end{align*}
+\emph{Properties:}
+\begin{itemize}
+%  \item \emph{Associative under full contraction}: $(U^\mu V_\mu) W = U^\mu (V_\mu W)$
+  \item \emph{Generally commutative}: $\tensor{U}{^\mu} \tensor{V}{_\mu} = \tensor{V}{_\mu} \tensor{U}{^\mu}$ as long as the underlying tensor algebra is over a \emph{commutative ring}
+  \item \emph{Distributive}: $(U + V)^\mu W_\mu = U^\mu W_\mu + V^\mu W_\mu$
+\end{itemize}
+
+\subsection*{Metric Tensor}
+\begin{align*}
+\tensor{U}{_\mu} &= \tensor{g}{_{\mu\nu}} \tensor{U}{^\nu}, \quad \tensor{U}{^\mu} = \tensor{g}{^{\mu\nu}} \tensor{U}{_\nu}
+\end{align*}
+\emph{Properties:}
+\begin{itemize}
+  \item \emph{Linear}: $g_{\mu\nu}(aU^\nu + bV^\nu) = aU_\mu + bV_\mu$
+  \item \emph{Inverse operation}: $g^{\mu\nu}g_{\nu\rho} = \delta^\mu_\rho$
+\end{itemize}
+
+\subsection*{Substitution Tensor}
+\begin{align*}
+\tensor{\delta}{^\mu_\nu} V^\nu &= V^\mu
+\end{align*}
+\emph{Properties:}
+\begin{itemize}
+  \item \emph{Acts as identity under contraction}
+  \item \emph{Compatible with index placement}
+\end{itemize}
+
+\subsection*{Volume Tensor}
+The \emph{volume tensor} is denoted by $\tensor{\epsilon}{^{\mu\nu\rho\ldots}}$ or $\tensor{\epsilon}{_{\mu\nu\rho\ldots}}$. It is defined by the sign of the permutation of its indices:
+\begin{equation*}
+\tensor{\epsilon}{^{\mu_1\mu_2\ldots\mu_n}} = 
+\begin{cases}
++1 & \text{even permutation of } (0,1,2,\ldots,n{-}1) \\
+-1 & \text{odd permutation} \\
+\ \ 0 & \text{any repeated index}
+\end{cases}
+\end{equation*}
+
 \end{document}
