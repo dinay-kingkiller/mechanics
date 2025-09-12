@@ -74,9 +74,9 @@ We begin with the group of rotations in three dimensions and its algebra, which 
 This lays the groundwork for the more complex groups appearing in relativity.
 
 \begin{definition}
-  The \emph{orthogonal group} is the group that preserves the identity tensor $\delta:=\diag(1, n)$ under conjugation:
+  The \emph{orthogonal group} is the group that preserves the identity tensor $\delta$ under conjugation:
   \begin{align*}
-    \mathrm{O}(n) := \left\{R \in GL(n, \mathbb{R}) \mid \tensor{R}{^\mu_\alpha} \tensor{\delta}{_\mu_\nu} \tensor{R}{^\nu}{_\beta} = \tensor{\delta}{_\alpha_\beta}\right\}.
+    \mathrm{O}(n) := \left\{R \in GL(n, \mathbb{R}) \mid \tensor{R}{^\mu_\alpha} \tensor{\delta}{_\mu_\nu} \tensor{R}{^\nu_\beta} = \tensor{\delta}{_\alpha_\beta}\right\}.
   \end{align*}
   This group contains both rotations, reflections, and improper rotations (i.e., compositions of a rotation and a reflection). To restrict to only proper rotations, the \emph{special orthogonal group} is the subgroup that contains only matrices with determinant $+1$
   \begin{equation*}
@@ -103,7 +103,7 @@ This lays the groundwork for the more complex groups appearing in relativity.
       c & d
     \end{pmatrix}
   \end{align*}
-  Orthogonality $\tensor{R}{^\mu_\alpha} \tensor{\delta}{_\mu_\nu} \tensor{R}{^\nu}{_\beta} = \tensor{\delta}{_\alpha_\beta}$ gives
+  Orthogonality $\tensor{R}{^\mu_\alpha} \tensor{\delta}{_\mu_\nu} \tensor{R}{^\nu_\beta} = \tensor{\delta}{_\alpha_\beta}$ gives
   \begin{align*}
     \begin{pmatrix}
       a & b \\
@@ -164,7 +164,7 @@ This lays the groundwork for the more complex groups appearing in relativity.
 \begin{definition}
   The \emph{generalized orthogonal group} is the group that preserves some metric $g$:
   \begin{align*}
-    O(n, \mathbb{F}) := \left\{ R \in GL(n, \mathbb{F}) \mid \tensor{R}{^\mu_\alpha} \tensor{g}{_\mu_\nu} \tensor{R}{^\nu}{_\beta} = \tensor{g}{_\alpha_\beta}\right\},
+    \mathrm{O}(n, \mathbb{F}) := \left\{ R \in GL(n, \mathbb{F}) \mid \tensor{R}{^\mu_\alpha} \tensor{g}{_\mu_\nu} \tensor{R}{^\nu_\beta} = \tensor{g}{_\alpha_\beta}\right\},
   \end{align*}
   where $GL(n, \mathbb{F})$ is the general linear group of order $n$ over a field $\mathbb{F}$, and $g$ is a symmetric, non-degenerate bilinear form. In other words, the (0,2)-tensor $g$ has the following properties for all vectors $u, v, w$ and scalar $\lambda$:
   \begin{itemize}
@@ -181,36 +181,36 @@ This lays the groundwork for the more complex groups appearing in relativity.
 \begin{theorem}
   The associated tangent algebra for an orthogonal group consists of matrices skew with respect to $g$
   \begin{equation*}
-    \mathfrak{o}(n, \mathbb{F}) = \left\{X \in M_n(\mathbb{F}) \mid \tensor{X}{_\alpha_\beta} + \tensor{X}{_\mu_\nu} = 0 \right\}.
+    \mathfrak{o}(n, \mathbb{F}) = \left\{X \in M_n(\mathbb{F}) \mid \tensor{X}{_\alpha_\beta} + \tensor{X}{_\beta_\alpha} = 0 \right\}.
   \end{equation*}
 \end{theorem}
 \begin{proof}
-  Consider a smooth curve $R(t): \mathbb{R} \to \mathrm{SO}(n)$ such that $\tensor{R}{^\mu}{_\nu}(0)=\delta{^\mu}{_\nu}$.
+  Consider a smooth curve $R(t): \mathbb{R} \to \mathrm{O}(n, \mathbb{F})$ with $\tensor{R}{^\mu_\nu}(0)=\tensor{\delta}{^\mu_\nu}$.
   Since $R(t)$ is orthogonal,
   \begin{align*}
     \tensor{R}{^\mu_\alpha} \tensor{g}{_\mu_\nu} \tensor{R}{^\nu}{_\beta} = \tensor{g}{_\alpha_\beta}.
   \end{align*}
-  Differentiating both sides with respect to $t$,
+  Differentiating,
   \begin{align*}
-    \frac{d}{dt}\left[ \tensor{R}{^\mu_\alpha} \tensor{g}{_\mu_\nu} \tensor{R}{^\nu}{_\beta} \right] = \frac{d}{dt} \left[ \tensor{g}{_\alpha_\beta} \right].
+    \frac{d}{dt}\left[ \tensor{R}{^\mu_\alpha} \tensor{g}{_\mu_\nu} \tensor{R}{^\nu_\beta} \right] = \frac{d}{dt} \left[ \tensor{g}{_\alpha_\beta} \right].
   \end{align*}
   Using the product rule:
   \begin{align*}
-    \tensor{\dot{R}}{^\mu_\alpha} \tensor{g}{_\mu_\nu} \tensor{R}{^\nu}{_\beta} + \tensor{R}{^\mu_\alpha} \tensor{\dot{g}}{_\mu_\nu} \tensor{R}{^\nu}{_\beta} + \tensor{R}{^\mu_\alpha} \tensor{g}{_\mu_\nu} \tensor{\dot{R}}{^\nu}{_\beta} = \tensor{\dot{g}}{_\alpha_\beta}.
+    \tensor{\dot{R}}{^\mu_\alpha} \tensor{g}{_\mu_\nu} \tensor{R}{^\nu_\beta} + \tensor{R}{^\mu_\alpha} \tensor{\dot{g}}{_\mu_\nu} \tensor{R}{^\nu_\beta} + \tensor{R}{^\mu_\alpha} \tensor{g}{_\mu_\nu} \tensor{\dot{R}}{^\nu_\beta} = \tensor{\dot{g}}{_\alpha_\beta}.
   \end{align*}
-  At $t=0$, $\tensor{R}{^\mu}{_\nu}=\tensor{\delta}{^\mu}{_\nu}$
+  At $t=0$, $\tensor{R}{^\mu_\nu}=\tensor{\delta}{^\mu_\nu}$
   \begin{align*}
-    \tensor{\dot{R}}{^\mu}{_\alpha} \tensor{g}{_\mu_\nu} \tensor{\delta}{^\nu}{_\beta} + \tensor{\delta}{^\mu}{_\alpha} \tensor{\dot{g}}{_\mu_\nu} \tensor{\delta}{^\nu}{_\beta} + \tensor{\delta}{^\mu}{_\alpha} \tensor{g}{_\mu_\nu} \tensor{\dot{R}}{^\nu}{_\beta} &= \tensor{\dot{g}}{_\alpha_\beta} \\
-    \tensor{\dot{R}}{^\mu}{_\alpha} \tensor{g}{_\mu_\beta} + \tensor{\dot{g}}{_\alpha_\beta} + \tensor{g}{_\alpha_\nu} \tensor{\dot{R}}{^\nu}{_\beta} &= \tensor{\dot{g}}{_\alpha_\beta}.
+    \tensor{\dot{R}}{^\mu_\alpha} \tensor{g}{_\mu_\nu} \tensor{\delta}{^\nu_\beta} + \tensor{\delta}{^\mu_\alpha} \tensor{\dot{g}}{_\mu_\nu} \tensor{\delta}{^\nu_\beta} + \tensor{\delta}{^\mu_\alpha} \tensor{g}{_\mu_\nu} \tensor{\dot{R}}{^\nu_\beta} &= \tensor{\dot{g}}{_\alpha_\beta} \\
+    \tensor{\dot{R}}{^\mu_\alpha} \tensor{g}{_\mu_\beta} + \tensor{\dot{g}}{_\alpha_\beta} + \tensor{g}{_\alpha_\nu} \tensor{\dot{R}}{^\nu_\beta} &= \tensor{\dot{g}}{_\alpha_\beta}.
   \end{align*}
-  If we define, $\tensor{X}{^\mu}{_\nu}:=\tensor{\dot{R}}{^\mu}{_\nu}$
+  If we define, $\tensor{X}{^\mu_\nu}:=\tensor{\dot{R}}{^\mu_\nu}$
   \begin{align*}
-    \tensor{X}{^\mu}{_\alpha} \tensor{g}{_\mu_\beta} + \tensor{g}{_\alpha_\nu} \tensor{X}{^\nu}{_\beta} = 0.
+    \tensor{X}{^\mu_\alpha} \tensor{g}{_\mu_\beta} + \tensor{g}{_\alpha_\nu} \tensor{X}{^\nu_\beta} = 0.
   \end{align*}
   Lowering the index of the first term and the metric in the second tensor lowers the index.
   \begin{align*}
     \tensor{g}{^\mu^\rho} \tensor{X}{_\rho_\alpha} \tensor{g}{_\mu_\beta} + \tensor{X}{_\alpha_\beta} &= 0\\
-    \tensor{\delta}{^\rho}{_\beta} \tensor{X}{_\rho_\alpha} + \tensor{X}{_\alpha_\beta} &= 0 \\
+    \tensor{\delta}{^\rho_\beta} \tensor{X}{_\rho_\alpha} + \tensor{X}{_\alpha_\beta} &= 0 \\
     \tensor{X}{_\beta_\alpha} + \tensor{X}{_\alpha_\beta} &= 0,
   \end{align*}
   which means that $X$ is skew-symmetric with respect to $g$.
@@ -716,7 +716,7 @@ The Lorentz transformations have profound implications for how different inertia
 These effects are not mere illusions but are fundamental to the nature of spacetime.
 % TODO: Kinematic consequences. These can be revisited later with a more geometric approach if desired.
 
-\section{Symmetries in Special Relativity: The Inhomogeneuous Special Orthogonal Group and Particle States}
+\section{Symmetries in Special Relativity: The Inhomogeneous Special Orthogonal Group and Particle States}
 \label{sec:poincare_particle_states}
 
 This section explores the full symmetry group of flat spacetime, the Poincaré group, and its profound implications for defining fundamental particle properties.
@@ -744,7 +744,7 @@ This section explores the full symmetry group of flat spacetime, the Poincaré g
 \end{definition}
 
 \begin{theorem}
-  Let $\Lambda$ be an element of the proper orthochronus orthogonal group, $\mathrm{SO}^+(1,3)$ and let $a\in\mathbb{R}^{1,3}$ be any constant spacetime translation vector. The affine transformation $T:\mathbb{R}^{1,3}\to\mathbb{R}^{1,3}$ defined by
+  Let $\Lambda$ be an element of the proper orthochronous orthogonal group, $\mathrm{SO}^+(1,3)$ and let $a\in\mathbb{R}^{1,3}$ be any constant spacetime translation vector. The affine transformation $T:\mathbb{R}^{1,3}\to\mathbb{R}^{1,3}$ defined by
   \begin{equation*}
     T(x) = \Lambda x + a
   \end{equation*}
@@ -1186,7 +1186,7 @@ A place to hide the scary linear algebra proofs.
 \begin{theorem}[Symmetric Polarization Identity]
   Let $g$ be a symmetric bilinear form on a vector space $V$. Then for all $x, y \in V$,
   \begin{equation*}
-     g(x-y,x-y) = g(x,x)-2g(x,y)+\eta(y,y).
+     g(x-y,x-y) = g(x,x)-2g(x,y)+g(y,y).
   \end{equation*}
 \end{theorem}
 \begin{proof}
