@@ -4,10 +4,12 @@
 \usepackage{amsmath}
 \usepackage{amsfonts}
 \usepackage{amsthm}
+\usepackage{amssymb}
 \usepackage{tensor}
 
 % Declare Theorem Environments
 \newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}[theorem]{Corollary}
 \newtheorem{lemma}[theorem]{Lemma}
 \theoremstyle{definition}
 \newtheorem{definition}[theorem]{Definition}
@@ -72,45 +74,146 @@ We begin with the group of rotations in three dimensions and its algebra, which 
 This lays the groundwork for the more complex groups appearing in relativity.
 
 \begin{definition}
-  The rotation group is defined as
+  The \emph{orthogonal group} is the group that preserves the identity tensor $\delta$ under conjugation:
+  \begin{align*}
+    \mathrm{O}(n) := \left\{R \in GL(n, \mathbb{R}) \mid \tensor{R}{^\mu_\alpha} \tensor{\delta}{_\mu_\nu} \tensor{R}{^\nu_\beta} = \tensor{\delta}{_\alpha_\beta}\right\}.
+  \end{align*}
+  This group contains both rotations, reflections, and improper rotations (i.e., compositions of a rotation and a reflection). To restrict to only proper rotations, the \emph{special orthogonal group} is the subgroup that contains only matrices with determinant $+1$
   \begin{equation*}
-    \mathrm{SO}(3) = \left\{ R \in \mathbb{R}^{3 \times 3} \middle|
-    R^\top R = I, \quad \det(R) = 1 \right\}.
+    \mathrm{SO}(n) = \left\{ R \in \mathrm{O}(n) \mid \det(R) = +1\right\}.
   \end{equation*}
 \end{definition}
 
-\begin{theorem}\label{thm:so3_algebra_skew_symmetric}
-  The associated algebra consists of all $3 \times 3$ real skew-symmetric matrices:
+\begin{lemma}
+  Rotation matrices in $SO(2)$ can be written as
+  \begin{align*}
+    R &=
+    \begin{pmatrix}
+      \cos \theta & \sin \theta \\
+      -\sin \theta & \cos \theta
+    \end{pmatrix}
+  \end{align*}
+\end{lemma}
+\begin{proof}
+  Let $R\in \mathrm{SO}(2)$ such that
+  \begin{align*}
+    R =
+    \begin{pmatrix}
+      a & b \\
+      c & d
+    \end{pmatrix}
+  \end{align*}
+  Orthogonality $\tensor{R}{^\mu_\alpha} \tensor{\delta}{_\mu_\nu} \tensor{R}{^\nu_\beta} = \tensor{\delta}{_\alpha_\beta}$ gives
+  \begin{align*}
+    \begin{pmatrix}
+      a & b \\
+      c & d
+    \end{pmatrix}
+    \begin{pmatrix}
+      1 & 0 \\
+      0 & 1
+    \end{pmatrix}
+    \begin{pmatrix}
+      a & c \\
+      b & d
+    \end{pmatrix}
+    =
+    \begin{pmatrix}
+      a^2 + b^2 & ac + bd \\
+      ac + bd & c^2 + d^2
+    \end{pmatrix}
+    =
+    \begin{pmatrix}
+      1 & 0 \\ 0 & 1
+    \end{pmatrix},
+  \end{align*}
+  which gives the following three equations,
+  \begin{align*}
+    a^2 + b^2 &= 1, \\
+    c^2 + d^2 &= 1, \\
+    ac + bd &= 0,
+  \end{align*}
+  The restriction that $\det(R)=1$ gives
+  \begin{align*}
+    ad - bc = 1.
+  \end{align*}
+  Since the first two equations are equations for the unit circle, the first equation can be parameterized with an arbitrary angle $\theta \in [0, 2\pi)$ such that $a = \cos\theta$ and $b = \sin\theta$. The second equation can be parameterized by a second angle $\phi \in [0, 2\pi)$ such that $c = \sin\phi$ and $d = \cos\phi$.
+  The determinant equation becomes
+  \begin{align*}
+    \cos\theta\cos\phi - \sin\theta\sin\phi = 1,
+  \end{align*}
+  which is the cosine of the sum of two angles
+  \begin{align*}
+    \cos\theta\cos\phi - \sin\theta\sin\phi = \cos\left(\theta+\phi\right) = 1.
+  \end{align*}
+  This implies that $\theta+\phi = 0 \pmod{2\pi}$ or $\phi=-\theta$. Substituting into the definitions of $c$ and $d$:
+  \begin{align*}
+    c&=\sin(-\theta)=-\sin\theta,\text{ and}\\
+    d&=\cos(-\theta)=\cos\theta,
+  \end{align*}
+  which gives the rotation matrix
   \begin{equation*}
-    \mathfrak{so}(3) = \left\{ X \in \mathbb{R}^{3 \times 3} \middle|
-    X^\top = -X \right\}.
+    R =
+    \begin{pmatrix}
+      \cos\theta & \sin\theta \\
+      -\sin\theta & \cos\theta
+    \end{pmatrix}.
+  \end{equation*}
+\end{proof}
+
+\begin{definition}
+  The \emph{generalized orthogonal group} is the group that preserves some metric $g$:
+  \begin{align*}
+    \mathrm{O}(n, \mathbb{F}) := \left\{ R \in GL(n, \mathbb{F}) \mid \tensor{R}{^\mu_\alpha} \tensor{g}{_\mu_\nu} \tensor{R}{^\nu_\beta} = \tensor{g}{_\alpha_\beta}\right\},
+  \end{align*}
+  where $GL(n, \mathbb{F})$ is the general linear group of order $n$ over a field $\mathbb{F}$, and $g$ is a symmetric, non-degenerate bilinear form. In other words, the (0,2)-tensor $g$ has the following properties for all vectors $u, v, w$ and scalar $\lambda$:
+  \begin{itemize}
+    \item Bilinearity:
+      \begin{align*}
+        \tensor{g}{_\mu_\nu} \left( \lambda \tensor{u}{^\mu} + \tensor{v}{^\mu} \right) \tensor{w}{^\nu}&= \lambda \tensor{g}{_\mu_\nu} \tensor{u}{^\mu} \tensor{w}{^\nu} + \tensor{g}{_\mu_\nu} \tensor{v}{^\mu} \tensor{w}{^\nu}\\
+          = \tensor{g}{_\mu_\nu} \tensor{w}{^\nu} \left( \lambda \tensor{u}{^\mu} + \tensor{v}{^\mu} \right) &= \tensor{g}{_\mu_\nu} \tensor{v}{^\mu} \tensor{w}{^\nu} + \lambda \tensor{g}{_\mu_\nu} \tensor{u}{^\mu} \tensor{w}{^\nu},
+      \end{align*}
+    \item Symmetry: $\tensor{g}{_\mu_\nu} = \tensor{g}{_\nu_\mu}$,
+    \item Non-degeneracy: $\tensor{g}{_\mu_\nu}\tensor{u}{^\mu}=0$ implies that $\tensor{u}{^\mu}=0$.
+  \end{itemize}
+\end{definition}
+
+\begin{theorem}
+  The associated tangent algebra for an orthogonal group consists of matrices skew with respect to $g$
+  \begin{equation*}
+    \mathfrak{o}(n, \mathbb{F}) = \left\{X \in M_n(\mathbb{F}) \mid \tensor{X}{_\alpha_\beta} + \tensor{X}{_\beta_\alpha} = 0 \right\}.
   \end{equation*}
 \end{theorem}
-
 \begin{proof}
-  Consider a smooth curve $R(t): \mathbb{R} \to \mathrm{SO}(3)$ such that $R(0) = I$.
+  Consider a smooth curve $R(t): \mathbb{R} \to \mathrm{O}(n, \mathbb{F})$ with $\tensor{R}{^\mu_\nu}(0)=\tensor{\delta}{^\mu_\nu}$.
   Since $R(t)$ is orthogonal,
-  \begin{equation*}
-    R(t)^\top R(t) = I.
-  \end{equation*}
-  Differentiate both sides with respect to $t$:
-  \begin{equation*}
-    \frac{d}{dt} \left( R(t)^\top R(t) \right) = \frac{d}{dt} I = 0.
-  \end{equation*}
-  Applying the product rule,
-  \begin{equation*}
-    \dot{R}(t)^\top R(t) + R(t)^\top \dot{R}(t) = 0.
-  \end{equation*}
-  Evaluating at $t=0$, where $R(0) = I$,
-  \begin{equation*}
-    \dot{R}(0)^\top I + I^\top \dot{R}(0) = \dot{R}(0)^\top + \dot{R}(0) = 0.
-  \end{equation*}
-  Define $X := \dot{R}(0)$.
-  The above equation implies
-  \begin{equation*}
-    X^\top = -X,
-  \end{equation*}
-  so $X \in \mathfrak{so}(3)$ is skew-symmetric.
+  \begin{align*}
+    \tensor{R}{^\mu_\alpha} \tensor{g}{_\mu_\nu} \tensor{R}{^\nu}{_\beta} = \tensor{g}{_\alpha_\beta}.
+  \end{align*}
+  Differentiating,
+  \begin{align*}
+    \frac{d}{dt}\left[ \tensor{R}{^\mu_\alpha} \tensor{g}{_\mu_\nu} \tensor{R}{^\nu_\beta} \right] = \frac{d}{dt} \left[ \tensor{g}{_\alpha_\beta} \right].
+  \end{align*}
+  Using the product rule:
+  \begin{align*}
+    \tensor{\dot{R}}{^\mu_\alpha} \tensor{g}{_\mu_\nu} \tensor{R}{^\nu_\beta} + \tensor{R}{^\mu_\alpha} \tensor{\dot{g}}{_\mu_\nu} \tensor{R}{^\nu_\beta} + \tensor{R}{^\mu_\alpha} \tensor{g}{_\mu_\nu} \tensor{\dot{R}}{^\nu_\beta} = \tensor{\dot{g}}{_\alpha_\beta}.
+  \end{align*}
+  At $t=0$, $\tensor{R}{^\mu_\nu}=\tensor{\delta}{^\mu_\nu}$
+  \begin{align*}
+    \tensor{\dot{R}}{^\mu_\alpha} \tensor{g}{_\mu_\nu} \tensor{\delta}{^\nu_\beta} + \tensor{\delta}{^\mu_\alpha} \tensor{\dot{g}}{_\mu_\nu} \tensor{\delta}{^\nu_\beta} + \tensor{\delta}{^\mu_\alpha} \tensor{g}{_\mu_\nu} \tensor{\dot{R}}{^\nu_\beta} &= \tensor{\dot{g}}{_\alpha_\beta} \\
+    \tensor{\dot{R}}{^\mu_\alpha} \tensor{g}{_\mu_\beta} + \tensor{\dot{g}}{_\alpha_\beta} + \tensor{g}{_\alpha_\nu} \tensor{\dot{R}}{^\nu_\beta} &= \tensor{\dot{g}}{_\alpha_\beta}.
+  \end{align*}
+  If we define, $\tensor{X}{^\mu_\nu}:=\tensor{\dot{R}}{^\mu_\nu}$
+  \begin{align*}
+    \tensor{X}{^\mu_\alpha} \tensor{g}{_\mu_\beta} + \tensor{g}{_\alpha_\nu} \tensor{X}{^\nu_\beta} = 0.
+  \end{align*}
+  Lowering the index of the first term and the metric in the second tensor lowers the index.
+  \begin{align*}
+    \tensor{g}{^\mu^\rho} \tensor{X}{_\rho_\alpha} \tensor{g}{_\mu_\beta} + \tensor{X}{_\alpha_\beta} &= 0\\
+    \tensor{\delta}{^\rho_\beta} \tensor{X}{_\rho_\alpha} + \tensor{X}{_\alpha_\beta} &= 0 \\
+    \tensor{X}{_\beta_\alpha} + \tensor{X}{_\alpha_\beta} &= 0,
+  \end{align*}
+  which means that $X$ is skew-symmetric with respect to $g$.
 \end{proof}
 
 \begin{definition}
@@ -200,6 +303,7 @@ This lays the groundwork for the more complex groups appearing in relativity.
   \end{equation*}
   where $R \in \mathrm{SO}(3)$ is a rotation described in the previous subsection, $\vec{v} \in \mathbb{R}^3$ is a velocity, $\vec{a} \in \mathbb{R}^3$ is a spatial translation, and $\tau \in \mathbb{R}$ is a time translation.
 \end{definition}
+
 \begin{definition}
   If we use an augmented spacetime 5-vector in homogeneous coordinates, $(x^0, x^1, x^2, x^3, x^4) \equiv (t,x,y,z,h)$ where $h:=1$ is the homogeneous coordinate, we can define the classical symmetry algebra $\mathfrak{csg}(3)$ in terms of its generators.
   The generators are defined by their non-zero matrix elements $(M)_{rc}$ (row $r$, column $c$, 0-indexed) as follows:
@@ -282,7 +386,7 @@ The invariance of the speed of light implies the invariance of the spacetime int
 \begin{definition}[Orthogonal symmetry group]\label{def:orthogonal_symmetry_group}
   The group of linear operators that preserve the flat spacetime metric tensor is an \emph{orthogonal group}
   \begin{equation*}
-    \mathrm{O}(1,3) := \left\{\Lambda\in\mathbb{R}^{4\times4}: \Lambda^\alpha{}_\mu\eta_{\mu\nu}\Lambda^\nu{}_\beta=\eta_{\alpha\beta}\right\}
+    \mathrm{O}(1,3) := \left\{\Lambda\in\mathbb{R}^{4\times4}: \tensor{\Lambda}{^\mu_\alpha}\tensor{\eta}{_\mu_\nu}\tensor{\Lambda}{^\nu_\beta}=\tensor{\eta}{_\alpha_\beta}\right\}
   \end{equation*}
   The subgroup of these matrices that prevent reflections is the \emph{proper} orthogonal group
   \begin{equation*}
@@ -612,73 +716,128 @@ The Lorentz transformations have profound implications for how different inertia
 These effects are not mere illusions but are fundamental to the nature of spacetime.
 % TODO: Kinematic consequences. These can be revisited later with a more geometric approach if desired.
 
-\subsection{Structure of Flat Spacetime}
-\label{subsec:sr_structure}
-
-\begin{definition*}
-  Recall in a previous section that we defined the \emph{flat spacetime metric tensor}, $\eta$:
-  \begin{equation*}
-    \eta = \diag(-1, +1, +1, +1).
-  \end{equation*}
-\end{definition*}
-
-\begin{definition}[Inhomogeneous Special Orthogonal Group]
-  The \emph{inhomogeneous special orthogonal group}, $\mathrm{ISO}(1,3)$, is the group of transforms that preserves the squared spacetime interval
-  \begin{equation*}
-    \mathrm{ISO}(1, 3)=\left\{T:\mathbb{R}^{1,3}\to\mathbb{R}^{1,3}\mid \left(T(x)-T(y)\right)^2
-=(x-y)^2\right\}
-  \end{equation*}
-  where the squared notation is defined for $V\in\mathbb{R}^{1,3}$
-  \begin{equation*}
-    V^2:=\eta_{\mu\nu}V^\mu V^\nu
-  \end{equation*}
-\end{definition}
-
-\begin{theorem}
-  Let $\Lambda$ be an element of the proper orthochronus orthogonal group, $\mathrm{SO}^+(1,3)$ and let $a\in\mathbb{R}^{1,3}$ be any constant spacetime translation vector. The affine transformation $T:\mathbb{R}^{1,3}\to\mathbb{R}^{1,3}$ defined by
-  \begin{equation*}
-    T(x) = \Lambda x + a
-  \end{equation*}
-  is an element of $ISO(1,3)$.
-\end{theorem}
-% TODO Proof goes here
-
-\begin{theorem}
-  All members $T\in\mathrm{ISO}(1,3)$ can be written as $T=\Lambda x + a$ where $\Lambda\in\mathrm{SO}(1, 3)$ and $a\in\mathbb{R}^4$.
-\end{theorem}
-% TODO Proof goes here
-
-At every point in this spacetime, a \emph{tangent space} can be defined.
-This is a vector space whose elements are 4-vectors, such as 4-displacement $dx^\mu$, 4-velocity $v^\mu$, 4-momentum $p^\mu$, etc.
-These vectors represent physical quantities or directions in spacetime.
-
-A \emph{4-velocity} $v^\mu = \frac{dx^\mu}{d\tau}$ describes the rate of change of spacetime coordinates $x^\mu$ with respect to the proper time $\tau$ along a particle's worldline.
-Proper time is the time measured by a clock moving with the particle.
-For a massive particle, its 4-velocity is normalized such that:
-\begin{equation*}
-  \eta_{\mu\nu} v^\mu v^\nu = v^\mu v_\mu = -1 \quad (\text{with } c=1).
-\end{equation*}
-\begin{remark}
-Throughout these notes, we use the $(-,+,+,+)$ metric signature convention, which leads to the normalization $v^\mu v_\mu = -1$ for timelike 4-velocities of massive particles.
-\end{remark}
-This normalization reflects that in the particle's own rest frame, its 4-velocity is purely in the time direction ($v^\mu_{rest} = (1,0,0,0)$ if $c=1$), and $d\tau^2 = -(dx^0_{rest})^2$.
-The metric and the concept of the invariant interval are thus fundamental to understanding motion and causality in special relativity.
-
-\section{Symmetries in Special Relativity: The Poincaré Group and Particle States}
+\section{Symmetries in Special Relativity: The Inhomogeneous Special Orthogonal Group and Particle States}
 \label{sec:poincare_particle_states}
 
 This section explores the full symmetry group of flat spacetime, the Poincaré group, and its profound implications for defining fundamental particle properties.
 
-\subsection{Introduction to the Poincaré Group}
-\label{subsec:intro_poincare}
-% TODO: Extension of the Lorentz group to include spacetime translations.
-% TODO: The 10 generators of the Poincaré group (rotations, boosts, and 4D translations).
-% TODO: User to fill in detailed explanations
+\subsection{Structure of Flat Spacetime}
+\label{subsec:sr_structure}
 
-\subsection{The Lie Algebra of the Poincaré Group}
+\begin{definition}
+  Let $\eta:\mathbb{R}^{1,3}\times\mathbb{R}^{1,3}\to\mathbb{R}$ be the \emph{flat spacetime inner product} of two vectors
+  \begin{equation*}
+    \eta(x, y) := \tensor{\eta}{_\mu_\nu}\tensor{x}{^\mu}\tensor{y}{^\nu}
+  \end{equation*}
+  where $\eta$ is still the flat spacetime metric tensor $\eta = \diag(-1, +1, +1, +1)$.
+\end{definition}
+
+\begin{remark}
+  Note that $\eta$ is a bilinear form but \emph{not} a metric in the metric space sense, since it is not positive-definite. In particular, $\eta(x, x)$ can be negative, zero, or positive depending on whether $x$ is time-like, null, or space-like.
+\end{remark}
+
+\begin{definition}[Inhomogeneous Special Orthogonal Group]
+  The \emph{inhomogeneous special orthogonal group}, $\mathrm{ISO}(1,3)$, is the group of transforms that preserves the squared spacetime interval
+  \begin{equation*}
+    \mathrm{ISO}(1, 3) = \left\{T: \mathbb{R}^{1,3} \to \mathbb{R}^{1,3} \mid \eta\left(T(x)-T(y), T(x)-T(y)\right) = \eta(x-y, x-y)\right\}
+  \end{equation*}
+\end{definition}
+
+\begin{theorem}
+  Let $\Lambda$ be an element of the proper orthochronous orthogonal group, $\mathrm{SO}^+(1,3)$ and let $a\in\mathbb{R}^{1,3}$ be any constant spacetime translation vector. The affine transformation $T:\mathbb{R}^{1,3}\to\mathbb{R}^{1,3}$ defined by
+  \begin{equation*}
+    T(x) = \Lambda x + a
+  \end{equation*}
+  is an element of $\mathrm{ISO}(1,3)$.
+\end{theorem}
+\begin{proof}
+  Let $T:\mathbb{R}^{1,3}\to\mathbb{R}^{1,3}$ defined by $x\mapsto \Lambda x+ a$ where $\Lambda\in\mathrm{SO}^+(1,3)$ and $a\in\mathbb{R}^{1,3}$.
+  For two events $x,y\in\mathbb{R}^{1,3}$, the difference of their image is
+  \begin{equation*}
+    T(y)-T(x) = (\Lambda y+a)-(\Lambda x+a)=\Lambda y-\Lambda x
+  \end{equation*}
+  Since $\Lambda$ is a linear operator, it has distributivity over addition:
+  \begin{equation*}
+    T(y)-T(x) = \Lambda (y-x)
+  \end{equation*}
+  Since $\Lambda\in\mathrm{SO}(1,3)$, $\tensor{\Lambda}{^\mu_\alpha}\tensor{\eta}{_\mu_\nu}\tensor{\Lambda}{^\nu_\beta}=\tensor{\eta}{_\alpha_\beta}$, and since all products are contractions over scalars, they commute
+  \begin{align*}
+    \eta\left(T(y)-T(x),T(y)-T(x)\right)&=\tensor{\eta}{_\mu_\nu}\tensor{(\Lambda(y-x))}{^\mu}\tensor{(\Lambda(y-x))}{^\nu}\\
+    &=\tensor{\eta}{_\mu_\nu}\tensor{\Lambda}{^\mu_\alpha}\tensor{(y-x)}{^\alpha}\tensor{\Lambda}{^\nu_\beta}\tensor{(y-x)}{^\beta}\\
+    &=\tensor{\eta}{_\alpha_\beta}\tensor{(y-x)}{^\alpha}\tensor{(y-x)}{^\beta}
+  \end{align*}
+  Hence, the flat spacetime interval is preserved under the transform $T$, so $T\in\mathrm{ISO}(1,3)$ by definition.
+\end{proof}
+
+\begin{theorem}
+  All members $T\in\mathrm{ISO}(1,3)$ can be written as $T(x)=\Lambda x + a$ where $\Lambda\in\mathrm{O}(1, 3)$ and $a\in\mathbb{R}^4$.
+\end{theorem}
+\begin{proof}
+  Let $T\in\mathrm{ISO}(1,3)$, be a map $T:\mathbb{R}^{1,3}\to\mathbb{R}^{1,3}$ that preserves the flat spacetime interval
+  \begin{equation*}
+    \eta\left(T(y)-T(x),T(y)-T(x)\right)=\eta(x-y,x-y)\text{ for all }x,y \in\mathbb{R}^{1,3}. 
+  \end{equation*}
+  Fix a point at $x=0$ such that $a:=T(0)$. Then define $\Lambda(x):= T(x)-a$. If $T$ preserves the interval then $\Lambda$ also preserves the interval:
+  \begin{align*}
+    \eta(\Lambda(x)+a-\Lambda(y)-a,\Lambda(x)+a-\Lambda(y)-a)&= \eta(x-y,x-y)\\
+    \eta(\Lambda(x)-\Lambda(y),\Lambda(x)-\Lambda(y)) &= \eta(x-y,x-y) 
+  \end{align*}
+  Since $\Lambda(0)=T(0)-a=a-a=0$:
+  \begin{align*}
+    \eta\left(\Lambda(y)-\Lambda(0),\Lambda(y)-\Lambda(0)\right) &= \eta(y-0,y-0)\\
+    \eta(\Lambda(y),\Lambda(y)) &= \eta(y,y) \text{ for all } y \in\mathbb{R}
+  \end{align*}
+  So $\Lambda$ preserves the norm.
+  Using the polarization identity in the lemma above:
+  \begin{equation*}
+    \eta(\Lambda(a),\Lambda(b)) = \frac{1}{2} \left[\eta(\Lambda(a)-\Lambda(b),\Lambda(a)-\Lambda(b)) - \eta(\Lambda(a),\Lambda(a)) - \eta(\Lambda(b),\Lambda(b))\right]
+  \end{equation*}
+  Since $\Lambda$ preserves the interval:
+  \begin{equation*}
+    \eta(\Lambda(a),\Lambda(b)) = \frac{1}{2} \left[\eta(a-b,a-b) - \eta(\Lambda(a),\Lambda(a)) - \eta(\Lambda(b),\Lambda(b))\right]
+  \end{equation*}
+  Since $\Lambda$ preserves the norm:
+  \begin{equation*}
+    \eta(\Lambda(a),\Lambda(b)) = \frac{1}{2} \left[\eta(a-b,a-b) - \eta(a,a) - \eta(b,b)\right]
+  \end{equation*}
+  Which, if we apply the polarization identity above again gives:
+  \begin{equation*}
+    \eta(\Lambda(a),\Lambda(b)) = \eta(a,b)
+  \end{equation*}
+  Which, implies that $\Lambda$ preserves the bilinear map $\eta$.
+  \begin{equation*}
+    \Lambda(x)+\Lambda(y)=\Lambda(x+y)
+  \end{equation*}
+\end{proof}
+
+\begin{corollary}
+  The composition of two elements $T_1(x) = \Lambda_1 x + a_1$ and $T_2(x) = \Lambda_2 x + a_2$ in $ISO(1, 3)$ satisfies
+  \begin{align*}
+    T_1 \circ T_2(x) = (\Lambda_1 \Lambda_2) x + (\Lambda_1 a_2 + a_1),
+  \end{align*}
+  so that group multiplication corresponds to
+  \begin{align*}
+    (\Lambda_1, a_1) \circ (\Lambda_2, a_2) = (\Lambda_1 \Lambda_2, \Lambda_1 a_2 + a_1),
+  \end{align*}
+  Hence, $ISO(1, 3)$ is isomorphic to the semidirect product $SO(1, 3) \rtimes \mathbb{R}^4$, where $SO(1,3)$ acts linearly on $\mathbb{R}^4$.
+\end{corollary}
+\begin{proof}
+  Let $T_1(x) = \Lambda_1 x + a_1$ and $T_2(x) = \Lambda_2 x + a_2$. Then:
+  \begin{align*}
+    T_1 \circ T_2 = T_1(\Lambda_2 x + a_2) = \Lambda_1 (\Lambda_2 x + a_2) + a_1 = \Lambda_1 \Lambda_2 x + \Lambda_1 a_2 + a_1.
+  \end{align*}
+  Thus the composition of two group elements in $ISO(1,3)$ corresponds to:
+  \begin{align*}
+    (\Lambda_1, a_1) (\Lambda_2, a_2) = (\Lambda_1\Lambda_2, \Lambda_1 a_2 + a_1),
+  \end{align*}
+  which matches the semidirect product structure $SO(1,3) \rtimes \mathbb{R}^4$.
+\end{proof}
+
+\subsection{The Tangent Space Algebra in a Flat Universe}
 \label{subsec:poincare_algebra}
 % TODO: The commutation relations among the generators ($[P^\mu, P^\nu]$, $[M^{\mu\nu}, P^\rho]$, $[M^{\mu\nu}, M^{\rho\sigma}]$).
 % TODO: User to fill in detailed explanations and derivations
+
 
 \subsection{Noether's Theorem and Conservation Laws from Poincaré Invariance}
 \label{subsec:noether_poincare}
@@ -962,5 +1121,95 @@ The \emph{volume tensor} is denoted by $\tensor{\epsilon}{^{\mu\nu\rho\ldots}}$ 
 \ \ 0 & \text{any repeated index}
 \end{cases}
 \end{equation*}
+
+\section{Linear Algebra}
+A place to hide the scary linear algebra proofs.
+
+\subsection{Bilinear Algebra}
+\begin{definition}[Bilinear Form]
+  Let $V$ be a vector space over a field $\mathbb{F}$. A \emph{bilinear form} is a map
+  \begin{equation*}
+    g:V\times V\to \mathbb{F}
+  \end{equation*}
+  such that for $\lambda \in \mathbb{F}$ and $u, v, w \in V$:
+  \begin{enumerate}
+    \item \emph{Compatibility with scalars in the left argument}:
+    \begin{equation*}
+      \lambda g(u, v) = g(\lambda u, v)
+    \end{equation*}
+    \item \emph{Compatibility with scalars in the right argument}:
+    \begin{equation*}
+      \lambda g(u, v) = g(u, \lambda v)
+    \end{equation*}
+    \item \emph{Additivity in the left argument}:
+    \begin{equation*}
+      g(u + v, w) = g(u, w) + g(v, w)
+    \end{equation*}
+    \item \emph{Additivity in the right argument}:
+    \begin{equation*}
+      g(u, v + w) = g(u, v) + g(u, w)
+    \end{equation*}
+  \end{enumerate}
+  A \emph{symmetric bilinear map} additionally has the following property
+  \begin{equation*}
+    g(u, v) = g(v, u),
+  \end{equation*}
+  while an \emph{anti-symmetric bilinear map} has the following property
+  \begin{equation*}
+    g(u, v) = -g(v, u).
+  \end{equation*}
+\end{definition}
+
+\begin{theorem}
+  Let $V$ be a finite-dimensional vector space over a field $\mathbb{F}$, and let $\{\tensor{e}{_\mu}\}$ be a basis of $V$.  
+  Any bilinear form $g: V \times V \to \mathbb{F}$ can be represented in terms of its components as
+  \begin{equation*}
+    g(u, v) = \tensor{G}{_\mu_\nu}\tensor{u}{^\mu}\tensor{v}{^\nu},
+  \end{equation*}
+  where $\tensor{G}{_\mu_\nu} := g(\tensor{e}{_\mu}, \tensor{e}{_\nu})$, and $\tensor{u}{^\mu}$, $\tensor{v}{^\nu}$ are the components of $u$, $v$ in the chosen basis.
+\end{theorem}
+\begin{proof}
+  Let $\{\tensor{e}{_\mu}\}^{n-1}_{\mu=0}$ be a basis of $V$. Then for any $u, v\in V$, there exists components $u^\mu, v^\nu \in \mathbb{F}$ such that:
+  \begin{equation*}
+    u=\tensor{u}{^\mu}\tensor{e}{_\mu} \quad v = \tensor{v}{^\nu}\tensor{e}{_\nu}.
+  \end{equation*}
+  Since $g$ is bilinear, we can expand
+  \begin{equation*}
+    g(u,v) = g(\tensor{u}{^\mu}\tensor{e}{_\mu}, \tensor{v}{^\nu}\tensor{e}{_\nu})=\tensor{u}{^\mu}\tensor{v}{^\nu}g(\tensor{e}{_\mu},\tensor{e}{_\nu}).
+  \end{equation*}
+  Let $\tensor{G}{_\mu_\nu}:=g(\tensor{e}{_\mu}, \tensor{e}{_\nu})$. Then the equation becomes
+  \begin{equation*}
+    g(u, v) = \tensor{G}{_\mu_\nu}\tensor{u}{^\mu}\tensor{v}{^\nu}
+  \end{equation*}
+\end{proof}
+
+\begin{theorem}[Symmetric Polarization Identity]
+  Let $g$ be a symmetric bilinear form on a vector space $V$. Then for all $x, y \in V$,
+  \begin{equation*}
+     g(x-y,x-y) = g(x,x)-2g(x,y)+g(y,y).
+  \end{equation*}
+\end{theorem}
+\begin{proof}
+  Let $g$ be a symmetric bilinear form on a vector space $V$ and $x, y \in V$. Expanding into its tensor form.
+  \begin{equation*}
+    g(x-y,x-y) = \tensor{g}{_\mu_\nu}\tensor{(x-y)}{^\mu}\tensor{(x-y)}{^\nu}
+  \end{equation*}
+  Expanding
+  \begin{equation*}
+    \tensor{g}{_\mu_\nu}\tensor{(x-y)}{^\mu}\tensor{(x-y)}{^\nu} =
+    \tensor{g}{_\mu_\nu}\tensor{x}{^\mu}\tensor{x}{^\nu}-\tensor{g}{_\mu_\nu}\tensor{x}{^\mu}\tensor{y}{^\nu}-\tensor{g}{_\mu_\nu}\tensor{y}{^\mu}\tensor{x}{^\nu}+\tensor{g}{_\mu_\nu}\tensor{y}{^\mu}\tensor{y}{^\nu}
+  \end{equation*}
+  After swapping the dummy indices, and since $\tensor{g}{_\mu_\nu}$ is symmetric:
+  \begin{equation*}
+    \tensor{g}{_\mu_\nu}\tensor{(x-y)}{^\mu}\tensor{(x-y)}{^\nu} =
+    \tensor{g}{_\mu_\nu}\tensor{x}{^\mu}\tensor{x}{^\nu}-2\tensor{g}{_\mu_\nu}\tensor{x}{^\mu}\tensor{y}{^\nu}+\tensor{g}{_\mu_\nu}\tensor{y}{^\mu}\tensor{y}{^\nu}
+  \end{equation*}
+  Or
+  \begin{equation*}
+    g(x-y,x-y) = g(x,x)-2g(x,y)+g(y,y).
+  \end{equation*}
+\end{proof}
+
+
 
 \end{document}
